@@ -4,18 +4,23 @@
     require __DIR__.'/vendor/autoload.php';
 
 
-    use App\School\Student\Student;
-    use App\School\Teacher\Teacher;
-    use App\School\Course\Course;
-    use App\School\Subject\Subject;
-
+    use App\School\Entities\Student;
+    use App\School\Entities\Teacher;
+    use App\School\Entities\Course;
+    use App\School\Entities\Subject;
+    use App\School\Entities\Department;
+   
+   
     $student=new Student("test@test.com","Alberto");
     $teacher=new Teacher("profe@test.com","Jordi");
+    $teacher->addToDepartment(new Department("Informatica"));
     
-    $materia1=new Subject("M7");
-    $materia2=new Subject("M8");
+    
     $daw_2=new Course("2DAW");
-    $daw_2->addSubject($materia1)->addSubject($materia2);
+    $daw_2->addSubject(new Subject("M7"))
+            ->addSubject(new Subject("M8"))
+            ->addSubject(new Subject("M6"));
 
-    dd($daw_2);
+            
+    dd($daw_2,$teacher);
    

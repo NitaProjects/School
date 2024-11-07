@@ -1,6 +1,6 @@
 <?php
 
-    namespace App\School;
+    namespace App\School\Entities;
 
      abstract class User{
         const MYSCHOOL="CEFPNutria";

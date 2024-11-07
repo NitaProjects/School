@@ -1,7 +1,7 @@
 <?php 
 
-    namespace App\School\Course;
-    use App\School\Subject\Subject;
+    namespace App\School\Entities;
+    use App\School\Entities\Subject;
 
     class Course{
         protected $name;

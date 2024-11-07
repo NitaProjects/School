@@ -1,8 +1,8 @@
 <?php
 
-    namespace App\School\Subject;
+    namespace App\School\Entities;
 
-    use App\School\Course\Course;
+    use App\School\Entities\Course;
 
     class Subject{
         protected string $name;

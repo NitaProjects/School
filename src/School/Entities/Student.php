@@ -1,9 +1,9 @@
 <?php
 
-    namespace App\School\Student;
+    namespace App\School\Entities;
 
-    use App\School\User;
-    use App\School\Student\StudentRepository;
+    use App\School\Entities\User;
+   
     use App\School\Trait\Timestampable;
 
     class Student extends User {

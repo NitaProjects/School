@@ -1,8 +1,8 @@
 <?php 
 
-    namespace App\School\Teacher;
+    namespace App\School\Repositories;
 
-    use App\School\Teacher\Teacher;
+    use App\School\Entities\Teacher;
 
     interface TeacherRepository{
         public function save(Teacher $teacher);
