@@ -3,14 +3,23 @@
     
     require __DIR__.'/vendor/autoload.php';
 
+    use App\Infrastructure\Routing\Router;
 
     use App\School\Entities\Student;
     use App\School\Entities\Teacher;
     use App\School\Entities\Course;
     use App\School\Entities\Subject;
     use App\School\Entities\Department;
+    use App\Controllers\HomeController;
    
+$router=new Router();
+$router->addRoute('GET','/',[new HomeController(),'index'])
+        ->addRoute('GET','/teachers',[new HomeController(),'teachers']);
+
+
+dd($router);
    
+
     $student=new Student("test@test.com","Alberto");
     $teacher=new Teacher("profe@test.com","Jordi");
     $teacher->addToDepartment(new Department("Informatica"));
@@ -22,5 +31,4 @@
             ->addSubject(new Subject("M6"));
 
             
-    dd($daw_2,$teacher);
-   
+    
