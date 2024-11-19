@@ -3,7 +3,7 @@
 namespace App\School\Repositories;
 use App\School\Entities\Course;
 
-    interface CourseRepository{
+    interface ICourseRepository{
         public function save(Course $course);
         public function findById($id);
         

@@ -4,7 +4,7 @@
 
     use App\School\Entities\Student;
     
-    interface StudentRepository{
+    interface IStudentRepository{
         public function save(Student $student);
         public function findById($id);
         

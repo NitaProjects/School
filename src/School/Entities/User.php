@@ -2,18 +2,24 @@
 
     namespace App\School\Entities;
 
-     abstract class User{
-        const MYSCHOOL="CEFPNutria";
-        protected string $email="test@test.com";
-        protected string $name;
-        protected string $password;
-        protected ?\DateTime $createdAt=null;
-        protected ?\DateTime $updatedAt=null;
+     class User{
+     
+
+        private string $email;
+        private string $username;
+        private string $password;
+        private string $dni;
+        private ?\DateTime $createdAt=null;
+        private ?\DateTime $updatedAt=null;
 
 
-        function __construct($email,$name){
+        function __construct($username,$email,$password,$dni){
             $this->email=$email;
-            $this->name=$name;
+            $this->username=$username;
+            $this->password=$password;
+            $this->dni=$dni;
+
+
         }
 
         function setEmail(string $email){
@@ -26,4 +32,28 @@
         }
 
         
+
+        /**
+         * Get the value of username
+         */ 
+        public function getUsername()
+        {
+                return $this->username;
+        }
+
+        /**
+         * Get the value of password
+         */ 
+        public function getPassword()
+        {
+                return $this->password;
+        }
+
+        /**
+         * Get the value of dni
+         */ 
+        public function getDni()
+        {
+                return $this->dni;
+        }
     }

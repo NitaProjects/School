@@ -3,7 +3,7 @@
 namespace App\School\Repositories;
 use App\School\Entities\Subject;
 
-    interface SubjectRepository{
+    interface ISubjectRepository{
         public function save(Subject $subject);
         public function findById($id);
         

@@ -4,5 +4,8 @@
         "App\\":"src/"
     },
     "files": ["src/helper.php"]
+   },
+   "require": {
+      "vlucas/phpdotenv": "^5.6"
    }
 }

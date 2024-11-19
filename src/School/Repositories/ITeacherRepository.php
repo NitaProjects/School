@@ -4,7 +4,7 @@
 
     use App\School\Entities\Teacher;
 
-    interface TeacherRepository{
+    interface ITeacherRepository{
         public function save(Teacher $teacher);
         public function findById($id);
         
