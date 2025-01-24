@@ -1,59 +1,79 @@
 <?php
 
-    namespace App\School\Entities;
+namespace App\School\Entities;
 
-     class User{
-     
+class User
+{
+    private int $id;
+    private string $name;
+    private string $email;
+    private string $password;
+    private string $userType;
 
-        private string $email;
-        private string $username;
-        private string $password;
-        private string $dni;
-        private ?\DateTime $createdAt=null;
-        private ?\DateTime $updatedAt=null;
-
-
-        function __construct($username,$email,$password,$dni){
-            $this->email=$email;
-            $this->username=$username;
-            $this->password=$password;
-            $this->dni=$dni;
-
-
-        }
-
-        function setEmail(string $email){
-            $this->email=$email;
-            return $this;
-        }
-
-        function getEmail(){
-            return $this->email;
-        }
-
-        
-
-        /**
-         * Get the value of username
-         */ 
-        public function getUsername()
-        {
-                return $this->username;
-        }
-
-        /**
-         * Get the value of password
-         */ 
-        public function getPassword()
-        {
-                return $this->password;
-        }
-
-        /**
-         * Get the value of dni
-         */ 
-        public function getDni()
-        {
-                return $this->dni;
-        }
+    public function __construct(
+        string $name,
+        string $email,
+        string $password,
+        string $userType
+    ) {
+        $this->name = $name;
+        $this->email = $email;
+        $this->password = $password;
+        $this->userType = $userType;
     }
+
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    public function setId(int $id): self
+    {
+        $this->id = $id;
+        return $this;
+    }
+
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): self
+    {
+        $this->name = $name;
+        return $this;
+    }
+
+    public function getEmail(): string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): self
+    {
+        $this->email = $email;
+        return $this;
+    }
+
+    public function getPassword(): string
+    {
+        return $this->password;
+    }
+
+    public function setPassword(string $password): self
+    {
+        $this->password = $password;
+        return $this;
+    }
+
+    public function getUserType(): string
+    {
+        return $this->userType;
+    }
+
+    public function setUserType(string $userType): self
+    {
+        $this->userType = $userType;
+        return $this;
+    }
+}

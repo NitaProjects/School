@@ -1,23 +1,30 @@
 <?php
 
-    namespace App\School\Entities;
+namespace App\School\Entities;
 
-    use App\School\Entities\User;
-   
-    use App\School\Trait\Timestampable;
+class Student extends User
+{
+    private string $enrollmentDate;
 
-    class Student extends User {
-        use Timestampable;
-
-        protected $enrollments=[];
-
-        public function showSchool(){
-            echo parent::MYSCHOOL;
-        }
-       
-        function __construct($email,$name){
-           
-            $this->updateTimestamps();
-        }
-
+    public function __construct(
+        string $name,
+        string $email,
+        string $password,
+        string $userType,
+        string $enrollmentDate
+    ) {
+        parent::__construct($name, $email, $password, $userType);
+        $this->enrollmentDate = $enrollmentDate;
     }
+
+    public function getEnrollmentDate(): string
+    {
+        return $this->enrollmentDate;
+    }
+
+    public function setEnrollmentDate(string $enrollmentDate): self
+    {
+        $this->enrollmentDate = $enrollmentDate;
+        return $this;
+    }
+}

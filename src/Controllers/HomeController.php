@@ -1,15 +1,13 @@
-<?php 
+<?php
 
-    namespace App\Controllers;
+namespace App\Controllers;
 
+use App\Infrastructure\HTTP\Response;
+use App\Infrastructure\Routing\Request;
 
-    class HomeController{
-
-        function index(){
-            $data=['name'=>'CEFPNuria'];
-            echo view('home',$data);
-        }
-        function teachers(){
-            echo 'teachers';
-        }
+class HomeController {
+ 
+    public function index(Request $request): Response {
+        return Response::html('home', []); 
     }
+}

@@ -1,12 +1,10 @@
 <?php
-    
-    
-    require __DIR__.'/bootstrap.php';
+session_start(); 
 
-    use App\Infrastructure\Routing\Request;
-   
-    $router->dispatch(new Request());
+require __DIR__ . '/bootstrap.php';
 
+use App\Infrastructure\Routing\Request;
 
+$request = new Request();
 
-   
+$router->dispatch($request);

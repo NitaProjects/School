@@ -1,28 +1,30 @@
 <?php 
 
-    namespace App\School\Services;
-    use App\School\Entities\Student;
-    use App\School\Entities\Course;
+namespace App\School\Services;
 
-    class Services{
-        private array $services=[];
-        private array $instances=[];
-        
-        public function addServices(string $service, callable $def){
-            $this->services[$service]=$def;
-        }
-
-        public function getService(string $name){
-            if(!isset($this->services[$name])){
-                throw new \Exception("Service $name not found");
-            }
-            if(!isset($this->instances[$name])){
-                $this->instances[$name]=$this->services[$name]($this);
-            }
-            return $this->instances[$name];
-        }
-
-        public function hasService($name){
-            return isset($this->services[$name]);
-        }
+class Services
+{
+    private array $services = [];
+    private array $instances = [];
+    
+    public function addServices(string $service, callable $definition): void
+    {
+        $this->services[$service] = $definition;
     }
+
+    public function getService(string $name)
+    {
+        if (!isset($this->services[$name])) {
+            throw new \Exception("Service $name not found");
+        }
+        if (!isset($this->instances[$name])) {
+            $this->instances[$name] = $this->services[$name]($this);
+        }
+        return $this->instances[$name];
+    }
+
+    public function hasService(string $name): bool
+    {
+        return isset($this->services[$name]);
+    }
+}

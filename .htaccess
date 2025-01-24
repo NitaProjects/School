@@ -1,9 +1,10 @@
 Options +FollowSymLinks
-
 RewriteEngine On
 
+# Ignorar archivos y directorios existentes
 RewriteCond %{REQUEST_FILENAME} -f [OR]
-RewriteCond %{REQUEST_FILENAME} -d 
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [NC,L]
 
-RewriteRule ^.*$ - [NC,L]
-RewriteRule ^.*$ index.php [NC,L]
+# Redirigir todo lo demás a index.php
+RewriteRule ^ index.php [NC,L]
