@@ -1,22 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Assign Teacher to Department</title>
+    <title>Asignar Profesor al Departamento</title>
     <link rel="stylesheet" href="/public/css/managment.css">
 </head>
 
 <body>
     <header class="header">
         <div class="container">
-            <h1>School Management System</h1>
+            <h1>Sistema de Gestión Escolar</h1>
             <nav>
                 <ul>
-                    <li><a href="/">Home</a></li>
-                    <li><a href="/assign-teacher">Assign Teacher</a></li>
-                    <li><a href="/create-teacher">Create Teacher</a></li>
+                    <li><a href="/">Inicio</a></li>
+                    <li><a href="/create-teacher">Crear Profesor</a></li>
                 </ul>
             </nav>
         </div>
@@ -24,17 +23,18 @@
 
     <main class="main">
         <div class="container">
-            <h2>Assign Teacher to Department</h2>
+            <h2>Asignar Profesor al Departamento</h2>
 
+            <!-- Mensaje de Alerta -->
             <?php if ($message = session_flash('message')): ?>
-                <div class="alert">
+                <div class="alert <?= session_flash('message_type') === 'error' ? 'alert-error' : 'alert-success' ?>">
                     <?= sanitize($message) ?>
                 </div>
             <?php endif; ?>
 
             <form action="/assign-teacher" method="POST" class="form">
                 <div class="form-group">
-                    <label for="teacher">Select Teacher:</label>
+                    <label for="teacher">Seleccionar Profesor:</label>
                     <select name="teacher_id" id="teacher" required>
                         <?php foreach ($teachers as $teacher): ?>
                             <option value="<?= htmlspecialchars($teacher['id']) ?>">
@@ -45,7 +45,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="department">Select Department:</label>
+                    <label for="department">Seleccionar Departamento:</label>
                     <select name="department_id" id="department" required>
                         <?php foreach ($departments as $department): ?>
                             <option value="<?= htmlspecialchars($department['id']) ?>">
@@ -55,17 +55,17 @@
                     </select>
                 </div>
 
-                <button type="submit" class="btn-primary">Assign</button>
+                <button type="submit" class="btn-primary">Asignar</button>
             </form>
 
-            <h3>Current Assignments</h3>
+            <h3>Asignaciones Actuales</h3>
             <table class="table">
                 <thead>
                     <tr>
-                        <th>Teacher</th>
-                        <th>Department</th>
-                        <th>Assigned Date</th>
-                        <th>Actions</th>
+                        <th>Profesor</th>
+                        <th>Departamento</th>
+                        <th>Fecha de Asignación</th>
+                        <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -76,7 +76,7 @@
                             <td><?= htmlspecialchars($assignment['assigned_date']) ?></td>
                             <td>
                                 <form action="/assignments/<?= htmlspecialchars($assignment['assignment_id']) ?>/delete" method="POST">
-                                    <button type="submit" class="btn-danger">Delete</button>
+                                    <button type="submit" class="btn-danger">Eliminar</button>
                                 </form>
                             </td>
                         </tr>
@@ -88,8 +88,8 @@
 
     <footer class="footer">
         <div class="container">
-            <p>&copy; 2025 School Management System. All rights reserved.</p>
-            <p>Contact us: <a href="mailto:support@schoolmanagement.com">support@schoolmanagement.com</a></p>
+            <p>&copy; <?= date('Y') ?> San Daniel. Todos los derechos reservados.</p>
+            <p>Contacto: <a href="mailto:soporte@sandaniel.com">Daniel es un crack</a></p>
         </div>
     </footer>
 </body>

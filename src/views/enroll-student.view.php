@@ -1,72 +1,71 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Enroll Student in Course</title>
+    <title>Matricular Estudiante en Curso</title>
     <link rel="stylesheet" href="/public/css/managment.css">
 </head>
 
 <body>
-    <header>
+    <header class="header">
         <div class="container">
-            <h1>School Management System</h1>
+            <h1>Sistema de Gestión Escolar</h1>
             <nav>
-                <a href="/">Home</a>
-                <a href="/assign-teacher">Assign Teacher</a>
-                <a href="/enroll-student">Enroll Student</a>
-                <a href="/create-teacher">Create Teacher</a>
-                <a href="/create-student">Create Student</a>
+                <ul>
+                    <li><a href="/">Inicio</a></li>
+                    <li><a href="/create-student">Crear Estudiante</a></li>
+                </ul>
             </nav>
         </div>
     </header>
 
-    <main>
+    <main class="main">
         <div class="container">
-            <h2>Enroll Student in Course</h2>
+            <h2>Matricular Estudiante en Curso</h2>
 
-            <div class="actions">
-                <a href="/" class="btn">← Back to Home</a>
-                <a href="/create-student" class="btn">+ Create Student</a>
-            </div>
-
+            <!-- Mensaje de Alerta -->
             <?php if ($message = session_flash('message')): ?>
-                <script>
-                    alert("<?= sanitize($message) ?>");
-                </script>
+                <div class="alert <?= session_flash('message_type') === 'error' ? 'alert-error' : 'alert-success' ?>">
+                    <?= sanitize($message) ?>
+                </div>
             <?php endif; ?>
 
-            <form action="/enroll-student" method="POST" class="form-card">
-                <label for="student">Select Student:</label>
-                <select name="student_id" id="student" required>
-                    <?php foreach ($students as $student): ?>
-                        <option value="<?= htmlspecialchars($student['id']) ?>">
-                            <?= htmlspecialchars($student['name']) ?>
-                        </option>
-                    <?php endforeach; ?>
-                </select>
+            <form action="/enroll-student" method="POST" class="form">
+                <div class="form-group">
+                    <label for="student">Seleccionar Estudiante:</label>
+                    <select name="student_id" id="student" required>
+                        <?php foreach ($students as $student): ?>
+                            <option value="<?= htmlspecialchars($student['id']) ?>">
+                                <?= htmlspecialchars($student['name']) ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
 
-                <label for="course">Select Course:</label>
-                <select name="course_id" id="course" required>
-                    <?php foreach ($courses as $course): ?>
-                        <option value="<?= htmlspecialchars($course['id']) ?>">
-                            <?= htmlspecialchars($course['name']) ?>
-                        </option>
-                    <?php endforeach; ?>
-                </select>
+                <div class="form-group">
+                    <label for="course">Seleccionar Curso:</label>
+                    <select name="course_id" id="course" required>
+                        <?php foreach ($courses as $course): ?>
+                            <option value="<?= htmlspecialchars($course['id']) ?>">
+                                <?= htmlspecialchars($course['name']) ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
 
-                <button type="submit" class="btn btn-primary">Enroll</button>
+                <button type="submit" class="btn-primary">Matricular</button>
             </form>
 
-            <h3>Current Enrollments</h3>
-            <table>
+            <h3>Matrículas Actuales</h3>
+            <table class="table">
                 <thead>
                     <tr>
-                        <th>Student</th>
-                        <th>Course</th>
-                        <th>Enrollment Date</th>
-                        <th>Actions</th>
+                        <th>Estudiante</th>
+                        <th>Curso</th>
+                        <th>Fecha de Matrícula</th>
+                        <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -76,8 +75,8 @@
                             <td><?= htmlspecialchars($enrollment['course_name']) ?></td>
                             <td><?= htmlspecialchars($enrollment['enrollment_date']) ?></td>
                             <td>
-                                <form action="/enrollments/<?= htmlspecialchars($enrollment['enrollment_id']) ?>/delete" method="POST" style="display:inline;">
-                                    <button type="submit" class="btn btn-delete">Delete</button>
+                                <form action="/enrollments/<?= htmlspecialchars($enrollment['enrollment_id']) ?>/delete" method="POST">
+                                    <button type="submit" class="btn-danger">Eliminar</button>
                                 </form>
                             </td>
                         </tr>
@@ -87,10 +86,10 @@
         </div>
     </main>
 
-    <footer>
+    <footer class="footer">
         <div class="container">
-            <p>© 2025 School Management System. All rights reserved.</p>
-            <p>Contact us: <a href="mailto:support@schoolmanagement.com">support@schoolmanagement.com</a></p>
+            <p>&copy; <?= date('Y') ?> San Daniel. Todos los derechos reservados.</p>
+            <p>Contacto: <a href="mailto:soporte@sandaniel.com">Daniel es un crack</a></p>
         </div>
     </footer>
 </body>

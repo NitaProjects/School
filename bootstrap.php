@@ -50,11 +50,23 @@ $services->addServices('assignTeacherService', function ($services) {
         $services->getService('userRepository')
     );
 });
+$services->addServices('teacherService', function ($services) {
+    return new \App\School\Services\TeacherService(
+        $services->getService('teacherRepository'),
+        $services->getService('userRepository')
+    );
+});
 $services->addServices('enrollStudentService', function ($services) {
     return new \App\School\Services\EnrollStudentInCourseService(
         $services->getService('studentRepository'),
         $services->getService('courseRepository'),
         $services->getService('enrollmentRepository'),
+        $services->getService('userRepository')
+    );
+});
+$services->addServices('studentService', function ($services) {
+    return new \App\School\Services\StudentService(
+        $services->getService('studentRepository'),
         $services->getService('userRepository')
     );
 });
@@ -65,34 +77,48 @@ $services->addServices('homeController', function () {
 });
 $services->addServices('teacherController', function ($services) {
     return new \App\Controllers\TeacherController(
-        $services->getService('assignTeacherService'),
-        $services->getService('teacherRepository'),
-        $services->getService('departmentRepository'),
-        $services->getService('userRepository')
+        $services->getService('teacherService')
     );
 });
+
+$services->addServices('assignTeacherToDepartmentController', function ($services) {
+    return new \App\Controllers\AssignTeacherToDepartmentController(
+        $services->getService('assignTeacherService')
+    );
+});
+
 $services->addServices('studentController', function ($services) {
     return new \App\Controllers\StudentController(
-        $services->getService('enrollStudentService'),
-        $services->getService('studentRepository'),
-        $services->getService('courseRepository'),
-        $services->getService('userRepository')
+        $services->getService('studentService') 
     );
 });
+
+$services->addServices('enrollStudentInCourseController', function ($services) {
+    return new \App\Controllers\EnrollStudentInCourseController(
+        $services->getService('enrollStudentService') 
+    );
+});
+
 
 // Configuración de rutas
 $router = new \App\Infrastructure\Routing\Router();
 $router
     ->addRoute('GET', '/', [$services->getService('homeController'), 'index'])
-    ->addRoute('GET', '/assign-teacher', [$services->getService('teacherController'), 'showAssignForm'])
-    ->addRoute('POST', '/assign-teacher', [$services->getService('teacherController'), 'assignToDepartment'])
-    ->addRoute('POST', '/assignments/{id}/delete', [$services->getService('teacherController'), 'deleteAssignment'])
+
+    // Rutas de asignación de profesores a departamentos
+    ->addRoute('GET', '/assign-teacher', [$services->getService('assignTeacherToDepartmentController'), 'showAssignForm'])
+    ->addRoute('POST', '/assign-teacher', [$services->getService('assignTeacherToDepartmentController'), 'assignToDepartment'])
+    ->addRoute('POST', '/assignments/{id}/delete', [$services->getService('assignTeacherToDepartmentController'), 'deleteAssignment'])
+
+    // Rutas de matriculación de estudiantes a cursos
+    ->addRoute('GET', '/enroll-student', [$services->getService('enrollStudentInCourseController'), 'showEnrollForm'])
+    ->addRoute('POST', '/enroll-student', [$services->getService('enrollStudentInCourseController'), 'enrollInCourse'])
+    ->addRoute('POST', '/enrollments/{id}/delete', [$services->getService('enrollStudentInCourseController'), 'deleteEnrollment'])
+
+    // Rutas de profesores
     ->addRoute('GET', '/create-teacher', [$services->getService('teacherController'), 'createForm'])
     ->addRoute('POST', '/store-teacher', [$services->getService('teacherController'), 'store'])
 
-
-    ->addRoute('GET', '/enroll-student', [$services->getService('studentController'), 'showEnrollForm'])
-    ->addRoute('POST', '/enroll-student', [$services->getService('studentController'), 'enrollInCourse'])
-    ->addRoute('POST', '/enrollments/{id}/delete', [$services->getService('studentController'), 'deleteEnrollment'])
+    // Rutas de estudiantes
     ->addRoute('GET', '/create-student', [$services->getService('studentController'), 'createForm'])
     ->addRoute('POST', '/store-student', [$services->getService('studentController'), 'store']);

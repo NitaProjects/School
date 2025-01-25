@@ -1,79 +1,87 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create Student</title>
+    <title>Crear Estudiante</title>
     <link rel="stylesheet" href="/public/css/formularios.css">
 </head>
 
 <body>
-    <!-- Header -->
+    <!-- Encabezado -->
     <header class="header">
         <div class="container">
-            <h1>School Management System</h1>
+            <h1>Sistema de Gestión Escolar</h1>
             <nav>
                 <ul>
-                    <li><a href="/">Home</a></li>
-                    <li><a href="/assign-teacher">Assign Teacher</a></li>
-                    <li><a href="/enroll-student">Enroll Student</a></li>
-                    <li><a href="/create-student">Create Student</a></li>
+                    <li><a href="/">Inicio</a></li>
+                    <li><a href="/enroll-student">Matricular Estudiante</a></li>
                 </ul>
             </nav>
         </div>
     </header>
 
-    <!-- Main Content -->
+    <!-- Contenido Principal -->
     <main class="main">
         <div class="container">
-            <h2>Create Student</h2>
+            <h2>Crear Estudiante</h2>
 
-            <!-- Alert Message -->
+            <!-- Mensaje de Alerta -->
+            <!-- Mensaje de Alerta -->
             <?php if ($message = session_flash('message')): ?>
-                <div class="alert">
+                <div class="alert <?= session_flash('message_type') === 'error' ? 'alert-error' : 'alert-success' ?>">
                     <?= sanitize($message) ?>
                 </div>
             <?php endif; ?>
 
-            <!-- Form -->
+
+
+            <!-- Formulario -->
             <form action="/store-student" method="POST" class="form">
                 <div class="form-group">
-                    <label for="name">Name:</label>
+                    <label for="name">Nombre:</label>
                     <input type="text" id="name" name="name" required>
                 </div>
 
                 <div class="form-group">
-                    <label for="email">Email:</label>
+                    <label for="email">Correo Electrónico:</label>
                     <input type="email" id="email" name="email" required>
                 </div>
 
                 <div class="form-group">
-                    <label for="password">Password:</label>
+                    <label for="password">Contraseña:</label>
                     <input type="password" id="password" name="password" required>
                 </div>
 
                 <div class="form-group">
-                    <label for="enrollment_date">Enrollment Date:</label>
+                    <label for="enrollment_date">Fecha de Matrícula:</label>
                     <input type="date" id="enrollment_date" name="enrollment_date" required>
                 </div>
 
-                <button type="submit" class="btn-primary">Create</button>
+                <button type="submit" class="btn-primary">Crear</button>
             </form>
 
             <p>
-                <a href="/enroll-student" class="btn-back">← Back to Students List</a>
+                <a href="/enroll-student" class="btn-back">← Volver a la Lista de Estudiantes</a>
             </p>
         </div>
     </main>
 
-    <!-- Footer -->
+    <!-- Pie de Página -->
     <footer class="footer">
         <div class="container">
-            <p>&copy; 2025 School Management System. All rights reserved.</p>
-            <p>Contact us: <a href="mailto:support@schoolmanagement.com">support@schoolmanagement.com</a></p>
+            <p>&copy; <?= date('Y') ?> San Daniel. Todos los derechos reservados.</p>
+            <p>Contacto: <a href="mailto:soporte@sandaniel.com">Daniel es un crack</a></p>
         </div>
     </footer>
 </body>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('enrollment_date').value = today;
+    });
+</script>
 
 </html>

@@ -61,12 +61,13 @@ class AssignTeacherToDepartmentTest extends TestCase
         // Asegurarse de que el método de asignar se llama exactamente una vez
         $this->teacherRepository
             ->expects($this->once())
-            ->method('assignToDepartment')
+            ->method('assignToDepartment') 
             ->with($teacherId, $departmentId);
 
         // Ejecutar la asignación
-        $this->service->execute($teacherId, $departmentId);
+        $this->service->assignTeacherToDepartment($teacherId, $departmentId);
     }
+
 
     /**
      * Caso de error: el profesor ya está asignado al departamento.
@@ -86,7 +87,7 @@ class AssignTeacherToDepartmentTest extends TestCase
         $this->expectException(\Exception::class);
         $this->expectExceptionMessage("Este profesor ya está asignado a este departamento.");
 
-        $this->service->execute($teacherId, $departmentId);
+        $this->service->assignTeacherToDepartment($teacherId, $departmentId);
     }
 
     /**
@@ -111,9 +112,9 @@ class AssignTeacherToDepartmentTest extends TestCase
 
         // Asegurar que se lanza la excepción esperada
         $this->expectException(\Exception::class);
-        $this->expectExceptionMessage("Profesor no encontrado");
+        $this->expectExceptionMessage("Profesor no encontrado.");
 
-        $this->service->execute($teacherId, $departmentId);
+        $this->service->assignTeacherToDepartment($teacherId, $departmentId);
     }
 
     /**
@@ -144,11 +145,14 @@ class AssignTeacherToDepartmentTest extends TestCase
 
         // Asegurar que se lanza la excepción esperada
         $this->expectException(\Exception::class);
-        $this->expectExceptionMessage("Departamento no encontrado");
+        $this->expectExceptionMessage("Departamento no encontrado.");
 
-        $this->service->execute($teacherId, $departmentId);
+        $this->service->assignTeacherToDepartment($teacherId, $departmentId);
     }
 
+    /**
+     * Caso de éxito: eliminar una asignación.
+     */
     public function testDeleteAssignmentSuccessfully(): void
     {
         $assignmentId = 1;
@@ -158,7 +162,7 @@ class AssignTeacherToDepartmentTest extends TestCase
             ->with($assignmentId)
             ->willReturn(['id' => $assignmentId, 'teacher_id' => 1, 'department_id' => 1]);
 
-        // Asegurar que el método delete se llama exactamente una vez
+        // Asegurarse de que el método delete se llama exactamente una vez
         $this->assignmentRepository
             ->expects($this->once())
             ->method('delete')

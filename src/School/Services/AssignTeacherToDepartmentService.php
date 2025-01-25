@@ -85,7 +85,7 @@ class AssignTeacherToDepartmentService
     public function execute(int $teacherId, int $departmentId): void
 {
     if ($this->assignmentRepository->exists($teacherId, $departmentId)) {
-        throw new \Exception("Este profesor ya está asignado a este departamento.");
+        throw new \Exception("Este ya tiene su silla aquí. ¿Intentando clonar profesores?");
     }
 
     $teacher = $this->teacherRepository->findById($teacherId);
