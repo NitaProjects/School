@@ -18,7 +18,7 @@ class TeacherService
         $this->userRepository = $userRepository;
     }
 
-    public function createTeacher(string $name, string $email, string $password, string $hireDate): void
+    public function createTeacher(string $name, string $email, string $password, string $hireDate): array
     {
         if ($this->userRepository->existsByEmail($email)) {
             throw new \Exception("¿En serio? ¿Otro con este email? Invéntate algo más original, haz el favor.");
@@ -26,5 +26,28 @@ class TeacherService
 
         $userId = $this->userRepository->create($name, $email, $password, "teacher");
         $this->teacherRepository->create($userId, $hireDate);
+
+        return [
+            'message' => '¡Bam! Otro profe al sistema. A ver cuánto dura.',
+        ];
+    }
+
+    public function deleteTeacher(int $userId): void
+    {
+        $teacher = $this->teacherRepository->findById($userId, true);
+        if (!$teacher) {
+            throw new \Exception("Profesor no encontrado.");
+        }
+
+        if ($this->teacherRepository->hasAssignments($teacher['id'])) {
+            throw new \Exception("No se puede eliminar: el profesor tiene asignaciones activas.");
+        }
+
+        $this->teacherRepository->deleteUser($userId);
+    }
+
+    public function getAllTeachers(): array
+    {
+        return $this->teacherRepository->getAll();
     }
 }

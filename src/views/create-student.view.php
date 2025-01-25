@@ -15,8 +15,9 @@
             <h1>Sistema de Gestión Escolar</h1>
             <nav>
                 <ul>
-                    <li><a href="/">Inicio</a></li>
-                    <li><a href="/enroll-student">Matricular Estudiante</a></li>
+                    <li><a href="/">🏠 Inicio</a></li>
+                    <li><a href="/enroll-student">➕📝 Matricular Estudiante</a></li>
+
                 </ul>
             </nav>
         </div>

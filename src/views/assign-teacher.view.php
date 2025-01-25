@@ -14,8 +14,11 @@
             <h1>Sistema de Gestión Escolar</h1>
             <nav>
                 <ul>
-                    <li><a href="/">Inicio</a></li>
-                    <li><a href="/create-teacher">Crear Profesor</a></li>
+                    <li><a href="/">🏠 Inicio</a></li>
+                    <li><a href="/create-teacher">➕📚 Crear Profesor</a></li>
+                    <li><a href="/delete-teacher">❌ Eliminar Profesor</a></li>
+
+
                 </ul>
             </nav>
         </div>
@@ -37,7 +40,7 @@
                     <label for="teacher">Seleccionar Profesor:</label>
                     <select name="teacher_id" id="teacher" required>
                         <?php foreach ($teachers as $teacher): ?>
-                            <option value="<?= htmlspecialchars($teacher['id']) ?>">
+                            <option value="<?= htmlspecialchars($teacher['teacher_id']) ?>">
                                 <?= htmlspecialchars($teacher['name']) ?>
                             </option>
                         <?php endforeach; ?>

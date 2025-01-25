@@ -89,13 +89,13 @@ $services->addServices('assignTeacherToDepartmentController', function ($service
 
 $services->addServices('studentController', function ($services) {
     return new \App\Controllers\StudentController(
-        $services->getService('studentService') 
+        $services->getService('studentService')
     );
 });
 
 $services->addServices('enrollStudentInCourseController', function ($services) {
     return new \App\Controllers\EnrollStudentInCourseController(
-        $services->getService('enrollStudentService') 
+        $services->getService('enrollStudentService')
     );
 });
 
@@ -117,6 +117,8 @@ $router
 
     // Rutas de profesores
     ->addRoute('GET', '/create-teacher', [$services->getService('teacherController'), 'createForm'])
+    ->addRoute('GET', '/delete-teacher', [$services->getService('teacherController'), 'deleteForm'])
+    ->addRoute('POST', '/teachers/{id}/delete', [$services->getService('teacherController'), 'delete'])
     ->addRoute('POST', '/store-teacher', [$services->getService('teacherController'), 'store'])
 
     // Rutas de estudiantes

@@ -15,8 +15,9 @@
             <h1>Sistema de Gestión Escolar</h1>
             <nav>
                 <ul>
-                    <li><a href="/">Inicio</a></li>
-                    <li><a href="/assign-teacher">Asignar Profesor</a></li>
+                    <li><a href="/">🏠 Inicio</a></li>
+                    <li><a href="/assign-teacher">👨‍🏫 Asignar Profesor</a></li>
+
                 </ul>
             </nav>
         </div>

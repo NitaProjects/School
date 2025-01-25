@@ -31,7 +31,7 @@ class AssignTeacherToDepartmentController
                 $request->getParam('department_id')
             );
 
-            session_flash('message', 'Asignado. Que no olvide traer galletas al equipo.');
+            session_flash('message', 'Asignado al departamento. Que no olvide traer galletas al equipo.');
             session_flash('message_type', 'success');
         } catch (\Exception $e) {
             session_flash('message', $e->getMessage());
@@ -46,7 +46,7 @@ class AssignTeacherToDepartmentController
         try {
             $this->service->deleteAssignment($params['id']);
 
-            session_flash('message', 'El profesor ha sido expulsado. ¿Se lo merecía? Probablemente.');
+            session_flash('message', 'El profesor ha sido expulsado del departamento. ¿Se lo merecía? Probablemente.');
             session_flash('message_type', 'success');
         } catch (\Exception $e) {
             session_flash('message', $e->getMessage());

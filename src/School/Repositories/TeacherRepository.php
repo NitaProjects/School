@@ -16,12 +16,14 @@ class TeacherRepository
     /**
      * Encuentra un profesor por su ID.
      */
-    public function findById(int $id): ?array
+    public function findById(int $id, bool $byUserId = false): ?array
     {
-        $stmt = $this->db->prepare("SELECT * FROM teachers WHERE id = :id");
+        $column = $byUserId ? 'user_id' : 'id'; // Determina la columna a usar
+        $stmt = $this->db->prepare("SELECT * FROM teachers WHERE $column = :id");
         $stmt->execute(['id' => $id]);
         return $stmt->fetch(PDO::FETCH_ASSOC) ?: null;
     }
+
 
     /**
      * Asigna un profesor a un departamento.
@@ -40,12 +42,21 @@ class TeacherRepository
      */
     public function getAll(): array
     {
-        $stmt = $this->db->query("SELECT t.id, u.name 
-                                  FROM teachers t
-                                  JOIN users u ON t.user_id = u.id
-                                  ORDER BY u.name ASC");
+        $stmt = $this->db->query("
+        SELECT 
+            t.id AS teacher_id,
+            u.id AS user_id,
+            u.name AS name,
+            u.email AS email,
+            t.hire_date AS hire_date
+        FROM teachers t
+        JOIN users u ON t.user_id = u.id
+        ORDER BY u.name ASC
+    ");
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+
 
     public function create(int $userId, string $hireDate): void
     {
@@ -57,5 +68,22 @@ class TeacherRepository
             'user_id' => $userId,
             'hire_date' => $hireDate
         ]);
+    }
+
+    public function hasAssignments(int $teacherId): bool
+    {
+        $stmt = $this->db->prepare("
+        SELECT COUNT(*) FROM assignments WHERE teacher_id = :teacherId
+    ");
+        $stmt->execute(['teacherId' => $teacherId]);
+        return $stmt->fetchColumn() > 0;
+    }
+
+    public function deleteUser(int $userId): void
+    {
+        $stmt = $this->db->prepare("
+        DELETE FROM users WHERE id = :userId
+    ");
+        $stmt->execute(['userId' => $userId]);
     }
 }

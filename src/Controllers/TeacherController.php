@@ -19,17 +19,25 @@ class TeacherController
         return Response::html('create-teacher');
     }
 
+    public function deleteForm(): Response
+    {
+        return Response::html('delete-teacher', [
+            'teachers' => $this->service->getAllTeachers(),
+        ]);
+    }
+
+
     public function store($request): void
     {
         try {
-            $this->service->createTeacher(
+            $result = $this->service->createTeacher(
                 $request->getParam('name'),
                 $request->getParam('email'),
                 $request->getParam('password'),
                 $request->getParam('hire_date')
             );
 
-            session_flash('message', '¡Bam! Otro profe al sistema. A ver cuánto dura.');
+            session_flash('message', $result['message']);
             session_flash('message_type', 'success');
         } catch (\Exception $e) {
             session_flash('message', $e->getMessage());
@@ -37,5 +45,22 @@ class TeacherController
         }
 
         redirect('/assign-teacher');
+    }
+
+    public function delete($request, $params): void
+    {
+        try {
+            $userId = $params['id'];
+
+            $this->service->deleteTeacher((int) $userId);
+
+            session_flash('message', 'El profesor ha sido eliminado con éxito.');
+            session_flash('message_type', 'success');
+        } catch (\Exception $e) {
+            session_flash('message', $e->getMessage());
+            session_flash('message_type', 'error');
+        }
+
+        redirect('/delete-teacher');
     }
 }

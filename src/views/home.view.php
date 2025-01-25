@@ -13,26 +13,30 @@ endif;
 
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>San Daniel</title>
+    <link rel="icon" type="image/x-icon" href="/favicon2.ico">
     <link rel="stylesheet" href="/public/css/home.css">
 </head>
+
 <body>
     <header class="header">
         <div class="container">
             <h1>San Daniel</h1>
             <nav>
                 <ul class="nav-links">
-                    <li><a href="/assign-teacher">Asignar Profesor</a></li>
-                    <li><a href="/enroll-student">Matricular Estudiante</a></li>
+                    <li><a href="/assign-teacher">👨‍🏫 Asignar Profesor</a></li>
+                    <li><a href="/enroll-student">📝 Matricular Estudiante</a></li>
+
                 </ul>
             </nav>
         </div>
     </header>
 
-    
+
 
     <footer class="footer">
         <div class="container">
@@ -41,4 +45,5 @@ endif;
         </div>
     </footer>
 </body>
+
 </html>
