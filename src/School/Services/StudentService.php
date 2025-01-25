@@ -27,4 +27,24 @@ class StudentService
         $userId = $this->userRepository->create($name, $email, $password, "student");
         $this->studentRepository->create($userId, $enrollmentDate);
     }
+
+    public function deleteStudent(int $userId): void
+    {
+        $student = $this->studentRepository->findById($userId, true);
+        if (!$student) {
+            throw new \Exception("Alumno no encontrado.");
+        }
+
+        if ($this->studentRepository->hasEnrollments($student['id'])) {
+            throw new \Exception("No se puede eliminar: el alumno tiene matriculas activas.");
+        }
+
+        $this->studentRepository->deleteUser($userId);
+    }
+
+
+    public function getAllStudents(): array
+    {
+        return $this->studentRepository->getAll();
+    }
 }

@@ -16,6 +16,7 @@
                 <ul>
                     <li><a href="/">🏠 Inicio</a></li>
                     <li><a href="/create-student">➕🎓 Crear Estudiante</a></li>
+                    <li><a href="/delete-student">❌ Eliminar Alumno</a></li>
 
                 </ul>
             </nav>

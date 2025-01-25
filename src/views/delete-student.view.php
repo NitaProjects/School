@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eliminar Profesor</title>
+    <title>Eliminar Alumno</title>
     <link rel="stylesheet" href="/public/css/managment.css">
 </head>
 
@@ -15,7 +15,7 @@
             <nav>
                 <ul>
                     <li><a href="/">🏠 Inicio</a></li>
-                    <li><a href="/create-teacher">➕📚 Crear Profesor</a></li>
+                    <li><a href="/create-student">➕📚 Crear Alumno</a></li>
 
                 </ul>
             </nav>
@@ -24,7 +24,7 @@
 
     <main class="main">
         <div class="container">
-            <h2>Eliminar Profesor</h2>
+            <h2>Eliminar Alumno</h2>
 
             <!-- Mensaje de Alerta -->
             <?php if ($message = session_flash('message')): ?>
@@ -33,43 +33,40 @@
                 </div>
             <?php endif; ?>
 
-            <h3>Lista de Profesores</h3>
+            <h3>Lista de Estudiantes</h3>
             <table class="table">
                 <thead>
                     <tr>
                         <th>ID</th>
                         <th>Nombre</th>
                         <th>Email</th>
-                        <th>Fecha de Contratación</th>
+                        <th>Fecha de Matriculación</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($teachers as $teacher): ?>
+                    <?php foreach ($students as $student): ?>
                         <tr>
-                            <td><?= htmlspecialchars($teacher['user_id']) ?></td>
-                            <td><?= htmlspecialchars($teacher['name']) ?></td>
-                            <td><?= htmlspecialchars($teacher['email']) ?></td>
-                            <td><?= htmlspecialchars($teacher['hire_date']) ?></td>
+                            <td><?= htmlspecialchars($student['user_id']) ?></td>
+                            <td><?= htmlspecialchars($student['name']) ?></td>
+                            <td><?= htmlspecialchars($student['email']) ?></td>
+                            <td><?= htmlspecialchars($student['enrollment_date']) ?></td>
                             <td>
-                                <form id="deleteForm-<?= htmlspecialchars($teacher['user_id']) ?>" action="/teachers/<?= htmlspecialchars($teacher['user_id']) ?>/delete" method="POST">
-                                    <button type="button" class="btn-danger" onclick="showModal(<?= htmlspecialchars($teacher['user_id']) ?>)">Eliminar</button>
+                                <form id="deleteForm-<?= htmlspecialchars($student['user_id']) ?>" action="/students/<?= htmlspecialchars($student['user_id']) ?>/delete" method="POST">
+                                    <button type="button" class="btn-danger" onclick="showModal(<?= htmlspecialchars($student['user_id']) ?>)">Eliminar</button>
                                 </form>
 
-                                <!-- Modal -->
-                                <div id="confirmationModal-<?= htmlspecialchars($teacher['user_id']) ?>" class="modal">
+                                <div id="confirmationModal-<?= htmlspecialchars($student['user_id']) ?>" class="modal">
                                     <div class="modal-content">
-                                        <p>¿Estás seguro de que deseas eliminar a <?= htmlspecialchars($teacher['name']) ?>?</p>
-                                        <button class="btn-danger" onclick="submitForm(<?= htmlspecialchars($teacher['user_id']) ?>)">Sí, eliminar</button>
-                                        <button class="btn-secondary" onclick="closeModal(<?= htmlspecialchars($teacher['user_id']) ?>)">Cancelar</button>
+                                        <p>¿Estás seguro de que deseas eliminar a <?= htmlspecialchars($student['name']) ?>?</p>
+                                        <button class="btn-danger" onclick="submitForm(<?= htmlspecialchars($student['user_id']) ?>)">Sí, eliminar</button>
+                                        <button class="btn-secondary" onclick="closeModal(<?= htmlspecialchars($student['user_id']) ?>)">Cancelar</button>
                                     </div>
                                 </div>
                             </td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
-
-
             </table>
         </div>
     </main>

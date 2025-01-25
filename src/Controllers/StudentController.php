@@ -19,6 +19,13 @@ class StudentController
         return Response::html('create-student');
     }
 
+    public function deleteForm(): Response
+    {
+        return Response::html('delete-student', [
+            'students' => $this->service->getAllStudents(),
+        ]);
+    }
+
     public function store($request): void
     {
         try {
@@ -37,5 +44,22 @@ class StudentController
         }
 
         redirect('/enroll-student');
+    }
+
+    public function delete($request, $params): void
+    {
+        try {
+            $userId = $params['id'];
+
+            $this->service->deleteStudent((int) $userId);
+
+            session_flash('message', 'El alumno ha sido eliminado con éxito.');
+            session_flash('message_type', 'success');
+        } catch (\Exception $e) {
+            session_flash('message', $e->getMessage());
+            session_flash('message_type', 'error');
+        }
+
+        redirect('/delete-student');
     }
 }

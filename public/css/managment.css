@@ -8,7 +8,8 @@
 
 /* Global Styles */
 body {
-    background-image: url('/public/images/minions3.jpg'); /* Imagen de fondo */
+    background-image: url('/public/images/minions3.jpg');
+    /* Imagen de fondo */
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -28,7 +29,8 @@ body::before {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Oscurecer el fondo para mejor contraste */
+    background-color: rgba(0, 0, 0, 0.5);
+    /* Oscurecer el fondo para mejor contraste */
     z-index: -1;
 }
 
@@ -39,57 +41,68 @@ body::before {
 }
 
 /* Header */
-.header, header {
-    background-color: rgba(76, 175, 80, 0.6); /* Fondo semitransparente */
+.header,
+header {
+    background-color: rgba(76, 175, 80, 0.6);
+    /* Fondo semitransparente */
     color: white;
     padding: 1.5rem 0;
     margin-bottom: 2rem;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.header h1, header h1 {
+.header h1,
+header h1 {
     text-align: center;
     font-size: 2rem;
 }
 
-nav ul, nav {
+nav ul,
+nav {
     display: flex;
     justify-content: center;
     list-style: none;
 }
 
-nav ul li, nav a {
+nav ul li,
+nav a {
     margin: 0 1rem;
 }
 
-nav ul li a, nav a {
+nav ul li a,
+nav a {
     text-decoration: none;
     color: white;
     font-weight: bold;
     transition: color 0.3s;
 }
 
-nav ul li a:hover, nav a:hover {
+nav ul li a:hover,
+nav a:hover {
     color: #d1e7dd;
 }
 
 /* Main Content */
-.main, main {
-    background-color: rgba(255, 255, 255, 0.6); /* Fondo blanco semitransparente */
+.main,
+main {
+    background-color: rgba(255, 255, 255, 0.6);
+    /* Fondo blanco semitransparente */
     border-radius: 10px;
     padding: 2rem;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     margin-bottom: 2rem;
 }
 
-h2, h3 {
+h2,
+h3 {
     margin-bottom: 1rem;
     color: #4CAF50;
     text-align: center;
 }
 
 /* Forms */
-.form, .form-card {
+.form,
+.form-card {
     margin: 2rem 0;
     display: flex;
     flex-direction: column;
@@ -106,7 +119,9 @@ label {
     margin-bottom: 0.5rem;
 }
 
-select, input, button {
+select,
+input,
+button {
     padding: 0.8rem;
     border: 1px solid #ddd;
     border-radius: 5px;
@@ -114,7 +129,8 @@ select, input, button {
     outline: none;
 }
 
-select:focus, input:focus {
+select:focus,
+input:focus {
     border-color: #4CAF50;
     box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
 }
@@ -131,7 +147,8 @@ select:focus, input:focus {
     background-color: #45a049;
 }
 
-.btn-danger, .btn-delete {
+.btn-danger,
+.btn-delete {
     background-color: #ff4d4d;
     color: white;
     border: none;
@@ -139,7 +156,8 @@ select:focus, input:focus {
     transition: background-color 0.3s ease;
 }
 
-.btn-danger:hover, .btn-delete:hover {
+.btn-danger:hover,
+.btn-delete:hover {
     background-color: #e60000;
 }
 
@@ -167,50 +185,62 @@ select:focus, input:focus {
 
 
 /* Tables */
-.table, table {
+.table,
+table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 2rem;
 }
 
-.table th, .table td, table th, table td {
+.table th,
+.table td,
+table th,
+table td {
     padding: 1rem;
     text-align: left;
     border-bottom: 1px solid #ddd;
 }
 
-.table th, table th {
+.table th,
+table th {
     background-color: #4CAF50;
     color: white;
 }
 
-.table tbody tr:nth-child(odd), table tbody tr:nth-child(odd) {
+.table tbody tr:nth-child(odd),
+table tbody tr:nth-child(odd) {
     background-color: #f9f9f9;
 }
 
-.table tbody tr:hover, table tbody tr:hover {
+.table tbody tr:hover,
+table tbody tr:hover {
     background-color: #f1f1f1;
 }
 
 /* Footer */
-.footer, footer {
-    background-color: rgba(76, 175, 80, 0.6); /* Fondo semitransparente */
+.footer,
+footer {
+    background-color: rgba(76, 175, 80, 0.6);
+    /* Fondo semitransparente */
     color: white;
     text-align: center;
     padding: 1.5rem;
     margin-top: auto;
 }
 
-.footer p, footer p {
+.footer p,
+footer p {
     margin: 0.5rem 0;
 }
 
-.footer a, footer a {
+.footer a,
+footer a {
     color: #d1e7dd;
     text-decoration: none;
 }
 
-.footer a:hover, footer a:hover {
+.footer a:hover,
+footer a:hover {
     color: white;
 }
 
@@ -232,13 +262,67 @@ select:focus, input:focus {
     background-color: #45a049;
 }
 
+/* Estilos del modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.modal-content p {
+    margin-bottom: 20px;
+    font-size: 1.2em;
+}
+
+.btn-danger {
+    background-color: #d9534f;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+
 /* Responsive Design */
 @media (max-width: 768px) {
-    .form, .form-card, .table, table {
+
+    .form,
+    .form-card,
+    .table,
+    table {
         font-size: 0.9rem;
     }
 
-    nav ul, nav {
+    nav ul,
+    nav {
         flex-direction: column;
         align-items: center;
     }

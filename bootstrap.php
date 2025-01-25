@@ -123,4 +123,7 @@ $router
 
     // Rutas de estudiantes
     ->addRoute('GET', '/create-student', [$services->getService('studentController'), 'createForm'])
+    ->addRoute('GET', '/delete-student', [$services->getService('studentController'), 'deleteForm'])
+    ->addRoute('POST', '/students/{id}/delete', [$services->getService('studentController'), 'delete'])
     ->addRoute('POST', '/store-student', [$services->getService('studentController'), 'store']);
+    
