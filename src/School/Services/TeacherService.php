@@ -21,7 +21,7 @@ class TeacherService
     public function createTeacher(string $name, string $email, string $password, string $hireDate): array
     {
         if ($this->userRepository->existsByEmail($email)) {
-            throw new \Exception("¿En serio? ¿Otro con este email? Invéntate algo más original, haz el favor.");
+            throw new \Exception("Ese email ya tiene dueño, amigo. ¿Es tan difícil ser único?");
         }
 
         $userId = $this->userRepository->create($name, $email, $password, "teacher");
@@ -32,7 +32,7 @@ class TeacherService
         ];
     }
 
-    public function deleteTeacher(int $userId): void
+    public function deleteTeacher(int $userId): array
     {
         $teacher = $this->teacherRepository->findById($userId, true);
         if (!$teacher) {
@@ -40,10 +40,14 @@ class TeacherService
         }
 
         if ($this->teacherRepository->hasAssignments($teacher['id'])) {
-            throw new \Exception("No se puede eliminar: el profesor tiene asignaciones activas.");
+            throw new \Exception("Lo sentimos, el profe tiene su 'residencia fija' en algún departamento.");
         }
 
         $this->teacherRepository->deleteUser($userId);
+
+        return [
+            'message' => 'Se fue. Que lo recuerden los que quieran... nosotros seguimos adelante.',
+        ];
     }
 
     public function getAllTeachers(): array

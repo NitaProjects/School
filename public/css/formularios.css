@@ -41,7 +41,7 @@ body::before {
 
 /* Header */
 .header {
-    background: rgba(0, 120, 212, 0.6); /* Fondo semitransparente */
+    background: rgba(0, 120, 212, 1); /* Fondo semitransparente */
     color: #fff;
     padding: 20px 0;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);

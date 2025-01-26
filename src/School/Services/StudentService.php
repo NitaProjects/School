@@ -18,17 +18,21 @@ class StudentService
         $this->userRepository = $userRepository;
     }
 
-    public function createStudent(string $name, string $email, string $password, string $enrollmentDate): void
+    public function createStudent(string $name, string $email, string $password, string $enrollmentDate): array
     {
         if ($this->userRepository->existsByEmail($email)) {
-            throw new \Exception("¿En serio? ¿Otro con este email? Invéntate algo más original, haz el favor.");
+            throw new \Exception("Email duplicado detectado. ¿También repites contraseñas? 🤔");
         }
 
         $userId = $this->userRepository->create($name, $email, $password, "student");
         $this->studentRepository->create($userId, $enrollmentDate);
+
+        return [
+            'message' => '¡Nuevo recluta listo! Espero que tenga buen aguante.',
+        ];
     }
 
-    public function deleteStudent(int $userId): void
+    public function deleteStudent(int $userId): array
     {
         $student = $this->studentRepository->findById($userId, true);
         if (!$student) {
@@ -36,10 +40,14 @@ class StudentService
         }
 
         if ($this->studentRepository->hasEnrollments($student['id'])) {
-            throw new \Exception("No se puede eliminar: el alumno tiene matriculas activas.");
+            throw new \Exception("¡Ni lo sueñes! Este alumno tiene más cursos pendientes que un procrastinador en diciembre.");
         }
 
         $this->studentRepository->deleteUser($userId);
+
+        return [
+            'message' => '¡Eliminado! Esperemos que no regrese pidiendo una beca.',
+        ];
     }
 
 

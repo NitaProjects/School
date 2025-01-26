@@ -37,7 +37,7 @@ class AssignTeacherToDepartmentService
         return $this->assignmentRepository->getAllAssignments();
     }
 
-    public function assignTeacherToDepartment(int $teacherId, int $departmentId): void
+    public function assignTeacherToDepartment(int $teacherId, int $departmentId): array
     {
         if ($this->assignmentRepository->exists($teacherId, $departmentId)) {
             throw new \Exception("El departamento ya le mandó flores de bienvenida, ¿qué más quieres?");
@@ -54,9 +54,13 @@ class AssignTeacherToDepartmentService
         }
 
         $this->teacherRepository->assignToDepartment($teacherId, $departmentId);
+
+        return [
+            'message' => 'Asignado al departamento. Que no olvide traer galletas al equipo.'
+        ];
     }
 
-    public function deleteAssignment(int $assignmentId): void
+    public function deleteAssignment(int $assignmentId): array
     {
         $assignment = $this->assignmentRepository->findById($assignmentId);
         if (!$assignment) {
@@ -64,5 +68,9 @@ class AssignTeacherToDepartmentService
         }
 
         $this->assignmentRepository->delete($assignmentId);
+
+        return [
+            'message' => 'El profesor ha sido expulsado del departamento. ¿Se lo merecía? Probablemente.'
+        ];
     }
 }

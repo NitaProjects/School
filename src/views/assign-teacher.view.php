@@ -46,7 +46,7 @@
                         <?php endforeach; ?>
                     </select>
                 </div>
-
+ 
                 <div class="form-group">
                     <label for="department">Seleccionar Departamento:</label>
                     <select name="department_id" id="department" required>

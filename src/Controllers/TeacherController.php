@@ -52,9 +52,9 @@ class TeacherController
         try {
             $userId = $params['id'];
 
-            $this->service->deleteTeacher((int) $userId);
+            $result = $this->service->deleteTeacher((int) $userId);
 
-            session_flash('message', 'El profesor ha sido eliminado con éxito.');
+            session_flash('message', $result['message']);
             session_flash('message_type', 'success');
         } catch (\Exception $e) {
             session_flash('message', $e->getMessage());

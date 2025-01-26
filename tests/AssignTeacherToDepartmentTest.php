@@ -85,7 +85,7 @@ class AssignTeacherToDepartmentTest extends TestCase
 
         // Asegurar que se lanza la excepción esperada
         $this->expectException(\Exception::class);
-        $this->expectExceptionMessage("Este profesor ya está asignado a este departamento.");
+        $this->expectExceptionMessage("El departamento ya le mandó flores de bienvenida, ¿qué más quieres?");
 
         $this->service->assignTeacherToDepartment($teacherId, $departmentId);
     }

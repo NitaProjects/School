@@ -26,12 +26,12 @@ class EnrollStudentInCourseController
     public function enrollInCourse($request): void
     {
         try {
-            $this->service->enrollStudentInCourse(
+            $result = $this->service->enrollStudentInCourse(
                 $request->getParam('student_id'),
                 $request->getParam('course_id')
             );
 
-            session_flash('message', '¡Inscripción completa! Ahora, que estudie.');
+            session_flash('message', $result['message']);
             session_flash('message_type', 'success');
         } catch (\Exception $e) {
             session_flash('message', $e->getMessage());
@@ -44,9 +44,9 @@ class EnrollStudentInCourseController
     public function deleteEnrollment($request, $params): void
     {
         try {
-            $this->service->deleteEnrollment($params['id']);
+            $result = $this->service->deleteEnrollment($params['id']);
 
-            session_flash('message', 'Alumno eliminado del curso. Quizás lo piense mejor la próxima vez.');
+            session_flash('message', $result['message']);
             session_flash('message_type', 'success');
         } catch (\Exception $e) {
             session_flash('message', $e->getMessage());

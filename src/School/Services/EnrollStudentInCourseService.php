@@ -56,13 +56,17 @@ class EnrollStudentInCourseService
         $this->enrollmentRepository->enrollStudent($studentId, $courseId);
     }
 
-    public function deleteEnrollment(int $enrollmentId): void
+    public function deleteEnrollment(int $enrollmentId): array
     {
         $enrollment = $this->enrollmentRepository->findById($enrollmentId);
         if (!$enrollment) {
-            throw new \Exception("Inscripción no encontrada.");
+            throw new \Exception("Matricula no encontrada.");
         }
 
         $this->enrollmentRepository->delete($enrollmentId);
+
+        return [
+            'message' => 'Alumno eliminado del curso. Quizás lo piense mejor la próxima vez.'
+        ];
     }
 }

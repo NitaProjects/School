@@ -28,7 +28,7 @@ body::before {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Oscurecer el fondo para mejor contraste */
+    background-color: rgba(0, 0, 0, 0.2); /* Oscurecer el fondo para mejor contraste */
     z-index: -1;
 }
 
@@ -40,7 +40,7 @@ body::before {
 
 /* Header */
 .header {
-    background-color: rgba(76, 175, 80, 0.6); /* Fondo semitransparente */
+    background-color: rgba(76, 175, 80, 1); /* Fondo semitransparente */
     color: #fff;
     padding: 20px 0;
     border-bottom: 3px solid #388E3C;

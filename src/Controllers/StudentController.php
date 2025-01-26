@@ -29,14 +29,14 @@ class StudentController
     public function store($request): void
     {
         try {
-            $this->service->createStudent(
+            $result = $this->service->createStudent(
                 $request->getParam('name'),
                 $request->getParam('email'),
                 $request->getParam('password'),
                 $request->getParam('enrollment_date')
             );
 
-            session_flash('message', '¡Nuevo recluta listo! Espero que tenga buen aguante.');
+            session_flash('message', $result['message']);
             session_flash('message_type', 'success');
         } catch (\Exception $e) {
             session_flash('message', $e->getMessage());
@@ -51,9 +51,9 @@ class StudentController
         try {
             $userId = $params['id'];
 
-            $this->service->deleteStudent((int) $userId);
+            $result = $this->service->deleteStudent((int) $userId);
 
-            session_flash('message', 'El alumno ha sido eliminado con éxito.');
+            session_flash('message', $result['message']);
             session_flash('message_type', 'success');
         } catch (\Exception $e) {
             session_flash('message', $e->getMessage());

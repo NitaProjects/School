@@ -26,12 +26,12 @@ class AssignTeacherToDepartmentController
     public function assignToDepartment($request): void
     {
         try {
-            $this->service->assignTeacherToDepartment(
+            $result = $this->service->assignTeacherToDepartment(
                 $request->getParam('teacher_id'),
                 $request->getParam('department_id')
             );
 
-            session_flash('message', 'Asignado al departamento. Que no olvide traer galletas al equipo.');
+            session_flash('message', $result['message']);
             session_flash('message_type', 'success');
         } catch (\Exception $e) {
             session_flash('message', $e->getMessage());
@@ -44,9 +44,9 @@ class AssignTeacherToDepartmentController
     public function deleteAssignment($request, $params): void
     {
         try {
-            $this->service->deleteAssignment($params['id']);
+            $result = $this->service->deleteAssignment($params['id']);
 
-            session_flash('message', 'El profesor ha sido expulsado del departamento. ¿Se lo merecía? Probablemente.');
+            session_flash('message', $result['message']);
             session_flash('message_type', 'success');
         } catch (\Exception $e) {
             session_flash('message', $e->getMessage());

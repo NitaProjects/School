@@ -43,7 +43,7 @@ body::before {
 /* Header */
 .header,
 header {
-    background-color: rgba(76, 175, 80, 0.6);
+    background-color: rgba(76, 175, 80, 1);
     /* Fondo semitransparente */
     color: white;
     padding: 1.5rem 0;

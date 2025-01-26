@@ -39,7 +39,7 @@
                     <label for="student">Seleccionar Estudiante:</label>
                     <select name="student_id" id="student" required>
                         <?php foreach ($students as $student): ?>
-                            <option value="<?= htmlspecialchars($student['id']) ?>">
+                            <option value="<?= htmlspecialchars($student['student_id']) ?>">
                                 <?= htmlspecialchars($student['name']) ?>
                             </option>
                         <?php endforeach; ?>

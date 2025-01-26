@@ -124,7 +124,7 @@ class EnrollStudentInCourseTest extends TestCase
 
         // Verificar que se lanza la excepción esperada
         $this->expectException(\Exception::class);
-        $this->expectExceptionMessage("Inscripción no encontrada.");
+        $this->expectExceptionMessage("Matricula no encontrada.");
 
         // Ejecutar el método
         $this->service->deleteEnrollment($enrollmentId);
