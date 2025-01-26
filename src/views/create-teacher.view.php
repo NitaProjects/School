@@ -12,7 +12,7 @@
     <!-- Encabezado -->
     <header class="header">
         <div class="container">
-            <h1>Sistema de Gestión Escolar</h1>
+            <h1>Crear Profesor</h1>
             <nav>
                 <ul class="nav-links">
                     <!-- Enlace directo a Inicio -->
@@ -43,7 +43,7 @@
     <!-- Contenido Principal -->
     <main class="main">
         <div class="container">
-            <h2>Crear Profesor</h2>
+            <h2></h2>
 
             <!-- Mensaje de Alerta -->
             <?php if ($message = session_flash('message')): ?>

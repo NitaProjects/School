@@ -43,4 +43,18 @@ class DepartmentRepository implements DepartmentRepositoryInterface
         $stmt = $this->db->prepare("DELETE FROM departments WHERE id = :id");
         $stmt->execute(['id' => $id]);
     }
+
+    public function update(int $id, array $data): void
+    {
+        $stmt = $this->db->prepare("
+            UPDATE departments 
+            SET name = :name, description = :description 
+            WHERE id = :id
+        ");
+        $stmt->execute([
+            'id' => $id,
+            'name' => $data['name'],
+            'description' => $data['description'],
+        ]);
+    }
 }

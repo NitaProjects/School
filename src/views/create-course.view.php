@@ -43,7 +43,7 @@
     <!-- Contenido Principal -->
     <main class="main">
         <div class="container">
-            <h2>Crear Curso</h2>
+            <h2></h2>
 
             <!-- Mensaje de Alerta -->
             <?php if ($message = session_flash('message')): ?>

@@ -43,11 +43,11 @@ $services->addServices('assignmentRepository', function ($services) {
 
 // Interfaces de repositorios
 $services->addServices('departmentRepositoryInterface', function ($services) {
-    return $services->getService('departmentRepository'); 
+    return $services->getService('departmentRepository');
 });
 
 $services->addServices('courseRepositoryInterface', function ($services) {
-    return $services->getService('courseRepository'); 
+    return $services->getService('courseRepository');
 });
 
 // Servicios
@@ -87,9 +87,9 @@ $services->addServices('departmentService', function ($services) {
 });
 $services->addServices('courseService', function ($services) {
     return new \App\School\Services\CourseService(
-        $services->getService('courseRepositoryInterface'), 
-        $services->getService('enrollmentRepository'),     
-        $services->getService('departmentRepositoryInterface') 
+        $services->getService('courseRepositoryInterface'),
+        $services->getService('enrollmentRepository'),
+        $services->getService('departmentRepositoryInterface')
     );
 });
 
@@ -160,7 +160,9 @@ $router
     // Rutas de departamentos
     ->addRoute('GET', '/create-department', [$services->getService('departmentController'), 'createForm'])
     ->addRoute('GET', '/delete-department', [$services->getService('departmentController'), 'deleteForm'])
+    ->addRoute('GET', '/update-department', [$services->getService('departmentController'), 'updateForm'])
     ->addRoute('POST', '/departments/{id}/delete', [$services->getService('departmentController'), 'delete'])
+    ->addRoute('POST', '/departments/{id}/update', [$services->getService('departmentController'), 'update'])
     ->addRoute('POST', '/store-department', [$services->getService('departmentController'), 'store'])
 
     // Rutas de cursos

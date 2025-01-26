@@ -11,7 +11,7 @@
 <body>
     <header class="header">
         <div class="container">
-            <h1>Sistema de Gestión Escolar</h1>
+            <h1>Eliminar Alumno</h1>
             <nav>
                 <ul class="nav-links">
                     <!-- Enlace directo a Inicio -->
@@ -41,7 +41,7 @@
 
     <main class="main">
         <div class="container">
-            <h2>Eliminar Alumno</h2>
+            <h2></h2>
 
             <!-- Mensaje de Alerta -->
             <?php if ($message = session_flash('message')): ?>
@@ -98,7 +98,7 @@
 
 <script>
     function showModal(userId) {
-        document.getElementById(`confirmationModal-${userId}`).style.display = 'block';
+        document.getElementById(`confirmationModal-${userId}`).style.display = 'flex';
     }
 
     function closeModal(userId) {

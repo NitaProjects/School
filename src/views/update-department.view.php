@@ -4,29 +4,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eliminar Departamento</title>
-    <link rel="stylesheet" href="/public/css/delete.css">
+    <title>Actualizar Departamento</title>
+    <link rel="stylesheet" href="/public/css/update.css">
 </head>
 
 <body>
     <header class="header">
         <div class="container">
-            <h1>Eliminar Departamento</h1>
+            <h1>Actualizar Departamento</h1>
             <nav>
                 <ul class="nav-links">
-                    <!-- Enlace directo a Inicio -->
                     <li><a href="/">🏠 Inicio</a></li>
-
-                    <!-- Menú desplegable para Profesores -->
-                    <li>
-                        <a href="#">📚 Profesores</a>
-                        <ul class="dropdown">
-                            <li><a href="/create-teacher">➕ Crear Profesor</a></li>
-                            <li><a href="/delete-teacher">❌ Eliminar Profesor</a></li>
-                        </ul>
-                    </li>
-
-                    <!-- Menú desplegable para Departamentos -->
                     <li>
                         <a href="#">🏢 Departamentos</a>
                         <ul class="dropdown">
@@ -67,22 +55,33 @@
                             <td><?= htmlspecialchars($department['name']) ?></td>
                             <td><?= htmlspecialchars($department['description']) ?></td>
                             <td>
-                                <form id="deleteForm-<?= htmlspecialchars($department['id']) ?>" action="/departments/<?= htmlspecialchars($department['id']) ?>/delete" method="POST">
-                                    <button type="button" class="btn-danger" onclick="showModal(<?= htmlspecialchars($department['id']) ?>)">Eliminar</button>
-                                </form>
+                                <button type="button" class="btn-primary" onclick="showUpdateModal(<?= htmlspecialchars($department['id']) ?>)">
+                                    Actualizar
+                                </button>
 
                                 <!-- Modal -->
-                                <div id="confirmationModal-<?= htmlspecialchars($department['id']) ?>" class="modal">
+                                <div id="updateModal-<?= htmlspecialchars($department['id']) ?>" class="modal">
                                     <div class="modal-content">
-                                        <p>¿Estás seguro de que deseas eliminar el departamento "<?= htmlspecialchars($department['name']) ?>"?</p>
-                                        <button class="btn-danger" onclick="submitForm(<?= htmlspecialchars($department['id']) ?>)">Sí, eliminar</button>
-                                        <button class="btn-secondary" onclick="closeModal(<?= htmlspecialchars($department['id']) ?>)">Cancelar</button>
+                                        <form action="/departments/<?= htmlspecialchars($department['id']) ?>/update" method="POST">
+                                            <h3>Actualizar Departamento</h3>
+                                            <label for="name-<?= htmlspecialchars($department['id']) ?>">Nombre:</label>
+                                            <input type="text" id="name-<?= htmlspecialchars($department['id']) ?>" name="name" value="<?= htmlspecialchars($department['name']) ?>" required>
+
+                                            <label for="description-<?= htmlspecialchars($department['id']) ?>">Descripción:</label>
+                                            <textarea id="description-<?= htmlspecialchars($department['id']) ?>" name="description" rows="3" required><?= htmlspecialchars($department['description']) ?></textarea>
+
+                                            <div class="modal-buttons">
+                                                <button type="submit" class="btn-primary">Guardar Cambios</button>
+                                                <button type="button" class="btn-secondary" onclick="closeUpdateModal(<?= htmlspecialchars($department['id']) ?>)">Cancelar</button>
+                                            </div>
+                                        </form>
                                     </div>
                                 </div>
                             </td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
+
             </table>
         </div>
     </main>
@@ -96,16 +95,20 @@
 </body>
 
 <script>
-    function showModal(departmentId) {
-        document.getElementById(`confirmationModal-${departmentId}`).style.display = 'flex';
+    function showUpdateModal(departmentId) {
+        const modal = document.getElementById(`updateModal-${departmentId}`);
+        modal.style.display = 'flex';
+
+        // Enfocar el campo de nombre al abrir el modal
+        const nameField = document.getElementById(`name-${departmentId}`);
+        if (nameField) {
+            nameField.focus();
+        }
     }
 
-    function closeModal(departmentId) {
-        document.getElementById(`confirmationModal-${departmentId}`).style.display = 'none';
-    }
-
-    function submitForm(departmentId) {
-        document.getElementById(`deleteForm-${departmentId}`).submit();
+    function closeUpdateModal(departmentId) {
+        const modal = document.getElementById(`updateModal-${departmentId}`);
+        modal.style.display = 'none';
     }
 </script>
 

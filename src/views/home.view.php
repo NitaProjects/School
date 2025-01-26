@@ -32,8 +32,10 @@
                         <ul class="dropdown">
                             <li><a href="/create-department">➕ Crear Departamento</a></li>
                             <li><a href="/delete-department">❌ Eliminar Departamento</a></li>
+                            <li><a href="/update-department">✏️ Editar Departamento</a></li>
                         </ul>
                     </li>
+
                     <li>
                         <a href="#">🎓 Alumnos</a>
                         <ul class="dropdown">

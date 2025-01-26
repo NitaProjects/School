@@ -12,7 +12,7 @@
     <!-- Encabezado -->
     <header class="header">
         <div class="container">
-            <h1>Sistema de Gestión Escolar</h1>
+            <h1>Crear Alumno</h1>
             <nav>
                 <ul class="nav-links">
                     <!-- Enlace directo a Inicio -->
