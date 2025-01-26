@@ -41,6 +41,15 @@ $services->addServices('assignmentRepository', function ($services) {
     return new \App\School\Repositories\AssignmentRepository($services->getService('db'));
 });
 
+// Interfaces de repositorios
+$services->addServices('departmentRepositoryInterface', function ($services) {
+    return $services->getService('departmentRepository'); 
+});
+
+$services->addServices('courseRepositoryInterface', function ($services) {
+    return $services->getService('courseRepository'); 
+});
+
 // Servicios
 $services->addServices('assignTeacherService', function ($services) {
     return new \App\School\Services\AssignTeacherToDepartmentService(
@@ -70,6 +79,20 @@ $services->addServices('studentService', function ($services) {
         $services->getService('userRepository')
     );
 });
+$services->addServices('departmentService', function ($services) {
+    return new \App\School\Services\DepartmentService(
+        $services->getService('departmentRepositoryInterface'),
+        $services->getService('assignmentRepository')
+    );
+});
+$services->addServices('courseService', function ($services) {
+    return new \App\School\Services\CourseService(
+        $services->getService('courseRepositoryInterface'), 
+        $services->getService('enrollmentRepository'),     
+        $services->getService('departmentRepositoryInterface') 
+    );
+});
+
 
 // Controladores
 $services->addServices('homeController', function () {
@@ -80,25 +103,32 @@ $services->addServices('teacherController', function ($services) {
         $services->getService('teacherService')
     );
 });
-
 $services->addServices('assignTeacherToDepartmentController', function ($services) {
     return new \App\Controllers\AssignTeacherToDepartmentController(
         $services->getService('assignTeacherService')
     );
 });
-
 $services->addServices('studentController', function ($services) {
     return new \App\Controllers\StudentController(
         $services->getService('studentService')
     );
 });
-
 $services->addServices('enrollStudentInCourseController', function ($services) {
     return new \App\Controllers\EnrollStudentInCourseController(
         $services->getService('enrollStudentService')
     );
 });
-
+$services->addServices('departmentController', function ($services) {
+    return new \App\Controllers\DepartmentController(
+        $services->getService('departmentService')
+    );
+});
+$services->addServices('courseController', function ($services) {
+    return new \App\Controllers\CourseController(
+        $services->getService('courseService'),
+        $services->getService('departmentService')
+    );
+});
 
 // Configuración de rutas
 $router = new \App\Infrastructure\Routing\Router();
@@ -125,5 +155,16 @@ $router
     ->addRoute('GET', '/create-student', [$services->getService('studentController'), 'createForm'])
     ->addRoute('GET', '/delete-student', [$services->getService('studentController'), 'deleteForm'])
     ->addRoute('POST', '/students/{id}/delete', [$services->getService('studentController'), 'delete'])
-    ->addRoute('POST', '/store-student', [$services->getService('studentController'), 'store']);
-    
+    ->addRoute('POST', '/store-student', [$services->getService('studentController'), 'store'])
+
+    // Rutas de departamentos
+    ->addRoute('GET', '/create-department', [$services->getService('departmentController'), 'createForm'])
+    ->addRoute('GET', '/delete-department', [$services->getService('departmentController'), 'deleteForm'])
+    ->addRoute('POST', '/departments/{id}/delete', [$services->getService('departmentController'), 'delete'])
+    ->addRoute('POST', '/store-department', [$services->getService('departmentController'), 'store'])
+
+    // Rutas de cursos
+    ->addRoute('GET', '/create-course', [$services->getService('courseController'), 'createForm'])
+    ->addRoute('GET', '/delete-course', [$services->getService('courseController'), 'deleteForm'])
+    ->addRoute('POST', '/courses/{id}/delete', [$services->getService('courseController'), 'delete'])
+    ->addRoute('POST', '/store-course', [$services->getService('courseController'), 'store']);

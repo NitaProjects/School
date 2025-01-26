@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Eliminar Profesor</title>
-    <link rel="stylesheet" href="/public/css/managment.css">
+    <link rel="stylesheet" href="/public/css/delete.css">
 </head>
 
 <body>
@@ -13,10 +13,27 @@
         <div class="container">
             <h1>Sistema de Gestión Escolar</h1>
             <nav>
-                <ul>
+                <ul class="nav-links">
+                    <!-- Enlace directo a Inicio -->
                     <li><a href="/">🏠 Inicio</a></li>
-                    <li><a href="/create-teacher">➕📚 Crear Profesor</a></li>
 
+                    <!-- Menú desplegable para Profesores -->
+                    <li>
+                        <a href="#">📚 Profesores</a>
+                        <ul class="dropdown">
+                            <li><a href="/create-teacher">➕ Crear Profesor</a></li>
+                            <li><a href="/delete-teacher">❌ Eliminar Profesor</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- Menú desplegable para Departamentos -->
+                    <li>
+                        <a href="#">🏢 Departamentos</a>
+                        <ul class="dropdown">
+                            <li><a href="/create-department">➕ Crear Departamento</a></li>
+                            <li><a href="/delete-department">❌ Eliminar Departamento</a></li>
+                        </ul>
+                    </li>
                 </ul>
             </nav>
         </div>

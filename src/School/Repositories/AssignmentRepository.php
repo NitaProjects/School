@@ -50,4 +50,15 @@ class AssignmentRepository {
         $stmt->execute(['teacher_id' => $teacherId, 'department_id' => $departmentId]);
         return (bool) $stmt->fetchColumn(); 
     }
+
+    public function hasAssignmentsForDepartment(int $departmentId): bool {
+        $stmt = $this->db->prepare("
+            SELECT COUNT(*) 
+            FROM assignments 
+            WHERE department_id = :departmentId
+        ");
+        $stmt->execute(['departmentId' => $departmentId]);
+        return $stmt->fetchColumn() > 0;
+    }
+    
 }

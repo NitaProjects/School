@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Crear Estudiante</title>
-    <link rel="stylesheet" href="/public/css/formularios.css">
+    <link rel="stylesheet" href="/public/css/create.css">
 </head>
 
 <body>
@@ -14,10 +14,27 @@
         <div class="container">
             <h1>Sistema de Gestión Escolar</h1>
             <nav>
-                <ul>
+                <ul class="nav-links">
+                    <!-- Enlace directo a Inicio -->
                     <li><a href="/">🏠 Inicio</a></li>
-                    <li><a href="/enroll-student">➕📝 Matricular Estudiante</a></li>
 
+                    <!-- Menú desplegable para Alumnos -->
+                    <li>
+                        <a href="#">🎓 Alumnos</a>
+                        <ul class="dropdown">
+                            <li><a href="/create-student">➕ Crear Estudiante</a></li>
+                            <li><a href="/delete-student">❌ Eliminar Alumno</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- Menú desplegable para Cursos -->
+                    <li>
+                        <a href="#">📘 Cursos</a>
+                        <ul class="dropdown">
+                            <li><a href="/create-course">➕ Crear Curso</a></li>
+                            <li><a href="/delete-course">❌ Eliminar Curso</a></li>
+                        </ul>
+                    </li>
                 </ul>
             </nav>
         </div>

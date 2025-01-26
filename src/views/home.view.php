@@ -1,16 +1,3 @@
-<?php
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
-if (!empty($_SESSION['message'])): ?>
-    <script>
-        alert("<?= htmlspecialchars($_SESSION['message']) ?>");
-    </script>
-<?php
-    unset($_SESSION['message'], $_SESSION['message_type']);
-endif;
-?>
-
 <!DOCTYPE html>
 <html lang="es">
 
@@ -28,15 +15,43 @@ endif;
             <h1>San Daniel</h1>
             <nav>
                 <ul class="nav-links">
+                    <!-- Enlaces Principales -->
                     <li><a href="/assign-teacher">👨‍🏫 Asignar Profesor</a></li>
                     <li><a href="/enroll-student">📝 Matricular Estudiante</a></li>
 
+                    <!-- Menús Desplegables -->
+                    <li>
+                        <a href="#">📘 Cursos</a>
+                        <ul class="dropdown">
+                            <li><a href="/create-course">➕ Crear Curso</a></li>
+                            <li><a href="/delete-course">❌ Eliminar Curso</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">🏢 Departamentos</a>
+                        <ul class="dropdown">
+                            <li><a href="/create-department">➕ Crear Departamento</a></li>
+                            <li><a href="/delete-department">❌ Eliminar Departamento</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">🎓 Alumnos</a>
+                        <ul class="dropdown">
+                            <li><a href="/create-student">➕ Crear Estudiante</a></li>
+                            <li><a href="/delete-student">❌ Eliminar Alumno</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">📚 Profesores</a>
+                        <ul class="dropdown">
+                            <li><a href="/create-teacher">➕ Crear Profesor</a></li>
+                            <li><a href="/delete-teacher">❌ Eliminar Profesor</a></li>
+                        </ul>
+                    </li>
                 </ul>
             </nav>
         </div>
     </header>
-
-
 
     <footer class="footer">
         <div class="container">

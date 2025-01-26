@@ -24,7 +24,7 @@ function insertUsers($pdo, $name, $email, $userType) {
         'password' => password_hash('password', PASSWORD_DEFAULT),
         'user_type' => $userType
     ]);
-    return $pdo->lastInsertId(); // Retorna el ID generado
+    return $pdo->lastInsertId(); 
 }
 
 function insertStudent($pdo, $userId) {

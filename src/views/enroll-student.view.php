@@ -5,19 +5,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Matricular Estudiante en Curso</title>
-    <link rel="stylesheet" href="/public/css/managment.css">
+    <link rel="stylesheet" href="/public/css/enroll-student.css">
 </head>
 
 <body>
     <header class="header">
         <div class="container">
-            <h1>Sistema de Gestión Escolar</h1>
+            <h1>Matricular Estudiante</h1>
             <nav>
-                <ul>
+                <ul class="nav-links">
+                    <!-- Enlace directo a Inicio -->
                     <li><a href="/">🏠 Inicio</a></li>
-                    <li><a href="/create-student">➕🎓 Crear Estudiante</a></li>
-                    <li><a href="/delete-student">❌ Eliminar Alumno</a></li>
 
+                    <!-- Menú desplegable para Alumnos -->
+                    <li>
+                        <a href="#">🎓 Alumnos</a>
+                        <ul class="dropdown">
+                            <li><a href="/create-student">➕ Crear Estudiante</a></li>
+                            <li><a href="/delete-student">❌ Eliminar Alumno</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- Menú desplegable para Cursos -->
+                    <li>
+                        <a href="#">📘 Cursos</a>
+                        <ul class="dropdown">
+                            <li><a href="/create-course">➕ Crear Curso</a></li>
+                            <li><a href="/delete-course">❌ Eliminar Curso</a></li>
+                        </ul>
+                    </li>
                 </ul>
             </nav>
         </div>
@@ -34,6 +50,7 @@
                 </div>
             <?php endif; ?>
 
+            <!-- Formulario de Matrícula -->
             <form action="/enroll-student" method="POST" class="form">
                 <div class="form-group">
                     <label for="student">Seleccionar Estudiante:</label>

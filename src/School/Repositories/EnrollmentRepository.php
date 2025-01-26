@@ -79,4 +79,16 @@ class EnrollmentRepository {
         $stmt->execute(['student_id' => $studentId, 'course_id' => $courseId]);
         return (bool) $stmt->fetchColumn(); 
     }
+
+    public function hasEnrollmentsForCourse(int $courseId): bool
+{
+    $stmt = $this->db->prepare("
+        SELECT COUNT(*) 
+        FROM enrollments 
+        WHERE course_id = :courseId
+    ");
+    $stmt->execute(['courseId' => $courseId]);
+    return $stmt->fetchColumn() > 0;
+}
+
 }
