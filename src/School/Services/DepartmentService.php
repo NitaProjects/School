@@ -56,7 +56,7 @@ class DepartmentService
         }
 
         if ($this->assignmentRepository->hasAssignmentsForDepartment($id)) {
-            throw new \Exception("No se puede eliminar el departamento '{$department['name']}' porque tiene asignaciones activas.");
+            throw new \Exception("El departamento '{$department['name']}' tiene asignaciones. Limpia el desorden antes de intentar borrarlo.");
         }
 
         $this->departmentRepository->delete($id);

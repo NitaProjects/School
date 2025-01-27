@@ -50,6 +50,7 @@
                             <li><a href="/delete-teacher">❌ Eliminar Profesor</a></li>
                         </ul>
                     </li>
+                    <li><a href="/manage-department">🚧Departamentos EN PRUEBAS🚧</a></li>
                 </ul>
             </nav>
         </div>

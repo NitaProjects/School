@@ -165,6 +165,10 @@ $router
     ->addRoute('POST', '/departments/{id}/update', [$services->getService('departmentController'), 'update'])
     ->addRoute('POST', '/store-department', [$services->getService('departmentController'), 'store'])
 
+    //PRUEBAS
+    ->addRoute('GET', '/manage-department', [$services->getService('departmentController'), 'manageForm'])
+
+
     // Rutas de cursos
     ->addRoute('GET', '/create-course', [$services->getService('courseController'), 'createForm'])
     ->addRoute('GET', '/delete-course', [$services->getService('courseController'), 'deleteForm'])

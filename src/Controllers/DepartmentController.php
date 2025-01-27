@@ -33,6 +33,15 @@ class DepartmentController
         ]);
     }
 
+    //PRUEBAS
+    public function manageForm(): Response
+    {
+        return Response::html('manage-department', [
+            'departments' => $this->service->getAllDepartments(),
+        ]);
+    }
+
+
 
     public function store($request): void
     {
@@ -49,7 +58,7 @@ class DepartmentController
             session_flash('message_type', 'error');
         }
 
-        redirect('/create-department');
+        redirect('/manage-department');
     }
 
     public function update($request, $params): void
@@ -70,7 +79,7 @@ class DepartmentController
             session_flash('message_type', 'error');
         }
 
-        redirect('/update-department');
+        redirect('/manage-department');
     }
 
     public function delete($_request, $params): void
@@ -87,6 +96,6 @@ class DepartmentController
             session_flash('message_type', 'error');
         }
 
-        redirect('/delete-department');
+        redirect('/manage-department');
     }
 }

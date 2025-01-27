@@ -37,24 +37,30 @@ class EnrollStudentInCourseService
         return $this->enrollmentRepository->getAllEnrollments();
     }
 
-    public function enrollStudentInCourse(int $studentId, int $courseId): void
+    public function enrollStudentInCourse(int $studentId, int $courseId): array
     {
         if ($this->enrollmentRepository->exists($studentId, $courseId)) {
-            throw new \Exception("¡Tranquilo, ya está matriculado! No lo atosigues.");
+            throw new \Exception("¡Ya está matriculado! No repitas como loro.");
         }
 
         $student = $this->studentRepository->findById($studentId);
         if (!$student) {
-            throw new \Exception("Estudiante no encontrado.");
+            throw new \Exception("Estudiante no encontrado. ¿Es un fantasma o qué?");
         }
 
         $course = $this->courseRepository->findById($courseId);
         if (!$course) {
-            throw new \Exception("Curso no encontrado.");
+            throw new \Exception("Curso no encontrado. ¿Acaso estás inventando nombres?");
         }
 
         $this->enrollmentRepository->enrollStudent($studentId, $courseId);
+
+        return [
+            'message' => "¡Hecho! El estudiante está atrapado en {$course['name']}... ¡ya no puede escapar! 😈",
+        ];
     }
+
+
 
     public function deleteEnrollment(int $enrollmentId): array
     {
