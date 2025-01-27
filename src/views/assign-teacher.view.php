@@ -11,7 +11,7 @@
 <body>
     <header class="header">
         <div class="container">
-            <h1>Asignar Profesor</h1>
+            <h1>Asignar Profesor a un Departamento</h1>
             <nav>
                 <ul class="nav-links">
                     <!-- Enlace directo a Inicio -->
@@ -32,6 +32,7 @@
                         <ul class="dropdown">
                             <li><a href="/create-department">➕ Crear Departamento</a></li>
                             <li><a href="/delete-department">❌ Eliminar Departamento</a></li>
+                            <li><a href="/update-department">✏️ Editar Departamento</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -41,7 +42,7 @@
 
     <main class="main">
         <div class="container">
-            <h2>Asignar Profesor al Departamento</h2>
+            <h2></h2>
 
             <!-- Mensaje de Alerta -->
             <?php if ($message = session_flash('message')): ?>

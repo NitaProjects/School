@@ -56,6 +56,27 @@
         </div>
     </header>
 
+    <!-- Hero Section -->
+    <main class="hero">
+        <!-- Video de fondo -->
+        <div class="video-container">
+            <video autoplay muted loop playsinline>
+                <source src="/public/videos/pizarra.mp4" type="video/mp4">
+                Tu navegador no soporta la reproducción de videos.
+            </video>
+        </div>
+
+        <!-- Contenido del Hero -->
+        <div class="hero-content">
+            <h1>Bienvenido a San Daniel</h1>
+            <p>Gestiona todo en un solo lugar: profesores, estudiantes y cursos.</p>
+            <div class="hero-buttons">
+                <a href="/assign-teacher" class="btn-primary">👨‍🏫 Asignar Profesor</a>
+                <a href="/enroll-student" class="btn-primary">📝 Matricular Estudiante</a>
+            </div>
+        </div>
+    </main>
+
     <footer class="footer">
         <div class="container">
             <p>&copy; <?= date('Y') ?> San Daniel. Todos los derechos reservados.</p>
@@ -63,5 +84,10 @@
         </div>
     </footer>
 </body>
+
+<script>
+    const video = document.querySelector('video');
+    video.playbackRate = 0.7; 
+</script>
 
 </html>
