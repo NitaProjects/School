@@ -38,6 +38,11 @@ body {
     color: #444;
 }
 
+.header img{
+    height: 40px;
+    width: 170px;
+}
+
 /* Navegación */
 .nav-links {
     list-style: none;

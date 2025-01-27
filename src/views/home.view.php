@@ -12,7 +12,7 @@
 <body>
     <header class="header">
         <div class="container">
-            <h1>San Daniel</h1>
+            <img src="../public/images/logo.png" alt="Logo">
             <nav>
                 <ul class="nav-links">
                     <!-- Enlaces Principales -->
@@ -87,7 +87,7 @@
 
 <script>
     const video = document.querySelector('video');
-    video.playbackRate = 0.7; 
+    video.playbackRate = 0.7;
 </script>
 
 </html>
