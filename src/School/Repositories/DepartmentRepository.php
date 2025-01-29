@@ -2,6 +2,8 @@
 
 namespace App\School\Repositories;
 
+use App\School\Entities\Department;
+
 use PDO;
 
 class DepartmentRepository implements DepartmentRepositoryInterface
@@ -13,28 +15,40 @@ class DepartmentRepository implements DepartmentRepositoryInterface
         $this->db = $db;
     }
 
-    public function findById(int $id): ?array
+    private function mapToEntity(array $data): Department
+    {
+        $department = new Department($data['name'], $data['description']);
+        return $department->setId($data['id']);
+    }
+
+
+    public function findById(int $id): ?Department
     {
         $stmt = $this->db->prepare("SELECT * FROM departments WHERE id = :id");
         $stmt->execute(['id' => $id]);
-        return $stmt->fetch(PDO::FETCH_ASSOC) ?: null;
+        $data = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        return $data ? $this->mapToEntity($data) : null;
     }
+
 
     public function getAll(): array
     {
         $stmt = $this->db->query("SELECT id, name, description FROM departments ORDER BY name ASC");
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $departments = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return array_map([$this, 'mapToEntity'], $departments);
     }
 
-    public function create(array $data): void
+    public function create(Department $department): void
     {
         $stmt = $this->db->prepare("
             INSERT INTO departments (name, description) 
             VALUES (:name, :description)
         ");
         $stmt->execute([
-            'name' => $data['name'],
-            'description' => $data['description'],
+            'name' => $department->getName(),
+            'description' => $department->getDescription(),
         ]);
     }
 
@@ -44,7 +58,7 @@ class DepartmentRepository implements DepartmentRepositoryInterface
         $stmt->execute(['id' => $id]);
     }
 
-    public function update(int $id, array $data): void
+    public function update(Department $department): void
     {
         $stmt = $this->db->prepare("
             UPDATE departments 
@@ -52,9 +66,9 @@ class DepartmentRepository implements DepartmentRepositoryInterface
             WHERE id = :id
         ");
         $stmt->execute([
-            'id' => $id,
-            'name' => $data['name'],
-            'description' => $data['description'],
+            'id' => $department->getId(),
+            'name' => $department->getName(),
+            'description' => $department->getDescription(),
         ]);
     }
 }

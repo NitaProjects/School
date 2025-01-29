@@ -29,7 +29,7 @@ class AssignTeacherToDepartmentService
 
     public function getAllDepartments(): array
     {
-        return $this->departmentRepository->getAll();
+        return array_map(fn($department) => $this->serialize($department), $this->departmentRepository->getAll());
     }
 
     public function getAssignments(): array
@@ -71,6 +71,15 @@ class AssignTeacherToDepartmentService
 
         return [
             'message' => 'El profesor ha sido expulsado del departamento. ¿Se lo merecía? Probablemente.'
+        ];
+    }
+
+    private function serialize(\App\School\Entities\Department $department): array
+    {
+        return [
+            'id' => $department->getId(),
+            'name' => $department->getName(),
+            'description' => $department->getDescription(),
         ];
     }
 }

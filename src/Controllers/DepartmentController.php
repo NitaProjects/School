@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Infrastructure\HTTP\Response;
 use App\School\Services\DepartmentService;
+use App\School\Entities\Department;
 
 class DepartmentController
 {
@@ -64,12 +65,21 @@ class DepartmentController
     public function update($request, $params): void
     {
         try {
-            $departmentId = $params['id'];
+            $departmentId = (int) $params['id'];
+
+            // Obtener datos como array y convertirlo a un objeto Department
+            $departmentData = $this->service->getDepartmentById($departmentId);
+            $department = new Department($departmentData['name'], $departmentData['description']);
+            $department->setId($departmentData['id']);
+
+            // Actualizar con los nuevos valores
+            $department->setName($request->getParam('name'))
+                ->setDescription($request->getParam('description'));
 
             $result = $this->service->updateDepartment(
-                (int)$departmentId,
-                $request->getParam('name'),
-                $request->getParam('description')
+                $department->getId(),
+                $department->getName(),
+                $department->getDescription()
             );
 
             session_flash('message', $result['message']);
@@ -82,12 +92,13 @@ class DepartmentController
         redirect('/manage-department');
     }
 
+
     public function delete($_request, $params): void
     {
         try {
-            $departmentId = $params['id'];
+            $departmentId = (int) $params['id'];
 
-            $result = $this->service->deleteDepartment((int) $departmentId);
+            $result = $this->service->deleteDepartment($departmentId);
 
             session_flash('message', $result['message']);
             session_flash('message_type', 'success');

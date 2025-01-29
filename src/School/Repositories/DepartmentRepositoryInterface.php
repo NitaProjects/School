@@ -2,15 +2,17 @@
 
 namespace App\School\Repositories;
 
+use App\School\Entities\Department;
+
 interface DepartmentRepositoryInterface
 {
-    public function findById(int $id): ?array;
+    public function findById(int $id): ?Department;
 
     public function getAll(): array;
 
-    public function create(array $data): void;
+    public function create(Department $department): void;
 
     public function delete(int $id): void;
 
-    public function update(int $id, array $data): void;
+    public function update(Department $department): void;
 }
