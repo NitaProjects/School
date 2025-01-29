@@ -80,7 +80,7 @@ class EnrollStudentInCourseTest extends TestCase
 
         // Verificar que se lanza la excepción esperada
         $this->expectException(\Exception::class);
-        $this->expectExceptionMessage("¡Tranquilo, ya está matriculado! No lo atosigues.");
+        $this->expectExceptionMessage("¡Ya está matriculado! No repitas como loro.");
 
         // Ejecutar el método
         $this->service->enrollStudentInCourse($studentId, $courseId);

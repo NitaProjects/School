@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>San Daniel</title>
-    <link rel="icon" type="image/x-icon" href="/favicon2.ico">
+    <link rel="icon" type="image/x-icon" href="/favicon3.ico">
     <link rel="stylesheet" href="/public/css/home.css">
 </head>
 
@@ -27,14 +27,14 @@
                             <li><a href="/delete-course">❌ Eliminar Curso</a></li>
                         </ul>
                     </li>
-                    <li>
+                    <!-- <li>
                         <a href="#">🏢 Departamentos</a>
                         <ul class="dropdown">
                             <li><a href="/create-department">➕ Crear Departamento</a></li>
                             <li><a href="/delete-department">❌ Eliminar Departamento</a></li>
                             <li><a href="/update-department">✏️ Editar Departamento</a></li>
                         </ul>
-                    </li>
+                    </li> -->
 
                     <li>
                         <a href="#">🎓 Alumnos</a>
@@ -50,7 +50,7 @@
                             <li><a href="/delete-teacher">❌ Eliminar Profesor</a></li>
                         </ul>
                     </li>
-                    <li><a href="/manage-department">🚧Departamentos EN PRUEBAS🚧</a></li>
+                    <li><a href="/manage-department">Departamentos</a></li>
                 </ul>
             </nav>
         </div>
