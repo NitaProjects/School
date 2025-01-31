@@ -7,6 +7,10 @@ use App\School\Services\EnrollStudentInCourseService;
 use App\School\Repositories\StudentRepository;
 use App\School\Repositories\CourseRepository;
 use App\School\Repositories\EnrollmentRepository;
+use App\School\Entities\Student;
+use App\School\Entities\Course;
+use App\School\Entities\Enrollment;
+
 
 class EnrollStudentInCourseTest extends TestCase
 {
@@ -32,37 +36,49 @@ class EnrollStudentInCourseTest extends TestCase
      * Caso de éxito: Matricular un estudiante en un curso.
      */
     public function testEnrollStudentSuccessfully(): void
-    {
-        $studentId = 1;
-        $courseId = 1;
+{
+    $studentId = 1;
+    $courseId = 1;
 
-        // Simular que no existe la inscripción
-        $this->enrollmentRepository
-            ->method('exists')
-            ->with($studentId, $courseId)
-            ->willReturn(false);
+    // Crear objetos en lugar de arrays
+    $student = new Student("Test Student", "test@student.com", "password", "Student", "2023-09-01");
+    $student->setId($studentId);
 
-        // Simular que el estudiante existe
-        $this->studentRepository
-            ->method('findById')
-            ->with($studentId)
-            ->willReturn(['id' => $studentId, 'name' => 'Test Student']);
+    $course = new Course("Test Course", "Descripción del curso", 1);
+    $course->setId($courseId);
 
-        // Simular que el curso existe
-        $this->courseRepository
-            ->method('findById')
-            ->with($courseId)
-            ->willReturn(['id' => $courseId, 'name' => 'Test Course']);
+    // Simular que no existe la inscripción
+    $this->enrollmentRepository
+        ->method('exists')
+        ->with($studentId, $courseId)
+        ->willReturn(false);
 
-        // Verificar que se llama a enrollStudent
-        $this->enrollmentRepository
-            ->expects($this->once())
-            ->method('enrollStudent')
-            ->with($studentId, $courseId);
+    // Simular que el estudiante existe
+    $this->studentRepository
+        ->method('findById')
+        ->with($studentId)
+        ->willReturn($student);
 
-        // Ejecutar el método
-        $this->service->enrollStudentInCourse($studentId, $courseId);
-    }
+    // Simular que el curso existe
+    $this->courseRepository
+        ->method('findById')
+        ->with($courseId)
+        ->willReturn($course);
+
+    // Verificar que se llama a enrollStudent con un objeto `Enrollment`
+    $this->enrollmentRepository
+        ->expects($this->once())
+        ->method('enrollStudent')
+        ->with($this->callback(function ($enrollment) use ($studentId, $courseId) {
+            return $enrollment instanceof Enrollment &&
+                   $enrollment->getStudent()->getId() === $studentId &&
+                   $enrollment->getCourse()->getId() === $courseId;
+        }));
+
+    // Ejecutar el método
+    $this->service->enrollStudentInCourse($studentId, $courseId);
+}
+
 
     /**
      * Caso de error: El estudiante ya está matriculado.
@@ -90,24 +106,35 @@ class EnrollStudentInCourseTest extends TestCase
      * Caso de éxito: Eliminar una inscripción correctamente.
      */
     public function testDeleteEnrollmentSuccessfully(): void
-    {
-        $enrollmentId = 1;
+{
+    $enrollmentId = 1;
 
-        // Simular que la inscripción existe
-        $this->enrollmentRepository
-            ->method('findById')
-            ->with($enrollmentId)
-            ->willReturn(['id' => $enrollmentId, 'student_id' => 1, 'course_id' => 1]);
+    // Crear objetos en lugar de arrays
+    $student = new Student("Test Student", "test@student.com", "password", "Student", "2023-09-01");
+    $student->setId(1);
 
-        // Verificar que se llama al método delete
-        $this->enrollmentRepository
-            ->expects($this->once())
-            ->method('delete')
-            ->with($enrollmentId);
+    $course = new Course("Test Course", "Descripción del curso", 1);
+    $course->setId(1);
 
-        // Ejecutar el método
-        $this->service->deleteEnrollment($enrollmentId);
-    }
+    $enrollment = new Enrollment($student, $course, "2024-01-01");
+    $enrollment->setId($enrollmentId);
+
+    // Simular que la inscripción existe
+    $this->enrollmentRepository
+        ->method('findById')
+        ->with($enrollmentId)
+        ->willReturn($enrollment);
+
+    // Verificar que se llama al método delete
+    $this->enrollmentRepository
+        ->expects($this->once())
+        ->method('delete')
+        ->with($enrollmentId);
+
+    // Ejecutar el método
+    $this->service->deleteEnrollment($enrollmentId);
+}
+
 
     /**
      * Caso de error: Intentar eliminar una inscripción inexistente.
@@ -124,7 +151,7 @@ class EnrollStudentInCourseTest extends TestCase
 
         // Verificar que se lanza la excepción esperada
         $this->expectException(\Exception::class);
-        $this->expectExceptionMessage("Matricula no encontrada.");
+        $this->expectExceptionMessage("Matrícula no encontrada.");
 
         // Ejecutar el método
         $this->service->deleteEnrollment($enrollmentId);
