@@ -46,12 +46,12 @@ class StudentController
         redirect('/enroll-student');
     }
 
-    public function delete($request, $params): void
+    public function delete($_request, $params): void
     {
         try {
-            $userId = $params['id'];
+            $userId = (int) $params['id'];
 
-            $result = $this->service->deleteStudent((int) $userId);
+            $result = $this->service->deleteStudent($userId);
 
             session_flash('message', $result['message']);
             session_flash('message_type', 'success');

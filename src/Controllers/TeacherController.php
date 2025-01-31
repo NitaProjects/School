@@ -22,10 +22,9 @@ class TeacherController
     public function deleteForm(): Response
     {
         return Response::html('delete-teacher', [
-            'teachers' => $this->service->getAllTeachers(),
+            'teachers' => $this->service->getAllTeachers(), 
         ]);
     }
-
 
     public function store($request): void
     {
@@ -47,12 +46,12 @@ class TeacherController
         redirect('/assign-teacher');
     }
 
-    public function delete($request, $params): void
+    public function delete($_request, $params): void
     {
         try {
-            $userId = $params['id'];
+            $userId = (int) $params['id']; 
 
-            $result = $this->service->deleteTeacher((int) $userId);
+            $result = $this->service->deleteTeacher($userId);
 
             session_flash('message', $result['message']);
             session_flash('message_type', 'success');

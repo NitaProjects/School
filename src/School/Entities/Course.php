@@ -59,4 +59,17 @@ class Course
         $this->departmentId = $departmentId;
         return $this;
     }
+
+    private ?string $departmentName = null;
+
+    public function getDepartmentName(): ?string
+    {
+        return $this->departmentName;
+    }
+
+    public function setDepartmentName(?string $departmentName): self
+    {
+        $this->departmentName = $departmentName;
+        return $this;
+    }
 }

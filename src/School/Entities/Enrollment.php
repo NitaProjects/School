@@ -5,14 +5,14 @@ namespace App\School\Entities;
 class Enrollment
 {
     private int $id;
-    private int $studentId;
-    private int $courseId;
+    private Student $student;
+    private Course $course;
     private string $enrollmentDate;
 
-    public function __construct(int $studentId, int $courseId, string $enrollmentDate)
+    public function __construct(Student $student, Course $course, string $enrollmentDate)
     {
-        $this->studentId = $studentId;
-        $this->courseId = $courseId;
+        $this->student = $student;
+        $this->course = $course;
         $this->enrollmentDate = $enrollmentDate;
     }
 
@@ -27,25 +27,25 @@ class Enrollment
         return $this;
     }
 
-    public function getStudentId(): int
+    public function getStudent(): Student
     {
-        return $this->studentId;
+        return $this->student;
     }
 
-    public function setStudentId(int $studentId): self
+    public function setStudent(Student $student): self
     {
-        $this->studentId = $studentId;
+        $this->student = $student;
         return $this;
     }
 
-    public function getCourseId(): int
+    public function getCourse(): Course
     {
-        return $this->courseId;
+        return $this->course;
     }
 
-    public function setCourseId(int $courseId): self
+    public function setCourse(Course $course): self
     {
-        $this->courseId = $courseId;
+        $this->course = $course;
         return $this;
     }
 

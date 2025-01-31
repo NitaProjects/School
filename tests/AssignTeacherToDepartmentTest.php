@@ -8,6 +8,9 @@ use App\School\Repositories\TeacherRepository;
 use App\School\Repositories\DepartmentRepository;
 use App\School\Repositories\AssignmentRepository;
 use App\School\Repositories\UserRepository;
+use App\School\Entities\Teacher;
+use App\School\Entities\Department;
+use App\School\Entities\Assignment;
 
 class AssignTeacherToDepartmentTest extends TestCase
 {
@@ -27,8 +30,7 @@ class AssignTeacherToDepartmentTest extends TestCase
         $this->service = new AssignTeacherToDepartmentService(
             $this->teacherRepository,
             $this->departmentRepository,
-            $this->assignmentRepository,
-            $this->userRepository
+            $this->assignmentRepository
         );
     }
 
@@ -47,27 +49,32 @@ class AssignTeacherToDepartmentTest extends TestCase
             ->willReturn(false);
 
         // Simular que el profesor existe
+        $teacher = new Teacher('Test Teacher', 'test@example.com', '', 'teacher', '');
+        $teacher->setId($teacherId);
+
         $this->teacherRepository
             ->method('findById')
             ->with($teacherId)
-            ->willReturn(['id' => $teacherId, 'name' => 'Test Teacher']);
+            ->willReturn($teacher);
 
         // Simular que el departamento existe
+        $department = new Department('Test Department', 'Descripción de prueba');
+        $department->setId($departmentId);
+
         $this->departmentRepository
             ->method('findById')
             ->with($departmentId)
-            ->willReturn(['id' => $departmentId, 'name' => 'Test Department']);
+            ->willReturn($department);
 
         // Asegurarse de que el método de asignar se llama exactamente una vez
         $this->teacherRepository
             ->expects($this->once())
-            ->method('assignToDepartment') 
+            ->method('assignToDepartment')
             ->with($teacherId, $departmentId);
 
         // Ejecutar la asignación
         $this->service->assignTeacherToDepartment($teacherId, $departmentId);
     }
-
 
     /**
      * Caso de error: el profesor ya está asignado al departamento.
@@ -132,10 +139,13 @@ class AssignTeacherToDepartmentTest extends TestCase
             ->willReturn(false);
 
         // Simular que el profesor existe
+        $teacher = new Teacher('Test Teacher', 'test@example.com', '', 'teacher', '');
+        $teacher->setId($teacherId);
+
         $this->teacherRepository
             ->method('findById')
             ->with($teacherId)
-            ->willReturn(['id' => $teacherId, 'name' => 'Test Teacher']);
+            ->willReturn($teacher);
 
         // Simular que el departamento no existe
         $this->departmentRepository
@@ -157,10 +167,20 @@ class AssignTeacherToDepartmentTest extends TestCase
     {
         $assignmentId = 1;
 
+        // Simular una asignación existente
+        $teacher = new Teacher('Test Teacher', 'test@example.com', '', 'teacher', '');
+        $teacher->setId(1);
+
+        $department = new Department('Test Department', 'Descripción de prueba');
+        $department->setId(1);
+
+        $assignment = new Assignment($teacher, $department, '2025-01-29');
+        $assignment->setId($assignmentId);
+
         $this->assignmentRepository
             ->method('findById')
             ->with($assignmentId)
-            ->willReturn(['id' => $assignmentId, 'teacher_id' => 1, 'department_id' => 1]);
+            ->willReturn($assignment);
 
         // Asegurarse de que el método delete se llama exactamente una vez
         $this->assignmentRepository

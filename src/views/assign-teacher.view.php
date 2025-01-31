@@ -10,7 +10,7 @@
 
 <body>
     <header class="header">
-        <div class="container">
+        <div class="container"> 
             <h1>Asignar Profesor a un Departamento</h1>
             <nav>
                 <ul class="nav-links">
@@ -48,13 +48,14 @@
             <?php if ($message = session_flash('message')): ?>
                 <div class="alert <?= session_flash('message_type') === 'error' ? 'alert-error' : 'alert-success' ?>">
                     <?= sanitize($message) ?>
-                </div>
+                </div> 
             <?php endif; ?>
 
             <!-- Formulario de Asignación -->
             <form action="/assign-teacher" method="POST" class="form">
                 <div class="form-group">
                     <label for="teacher">Seleccionar Profesor:</label>
+                    <!-- <pre><?php var_dump($teachers); ?></pre> -->
                     <select name="teacher_id" id="teacher" required>
                         <?php foreach ($teachers as $teacher): ?>
                             <option value="<?= htmlspecialchars($teacher['teacher_id']) ?>">

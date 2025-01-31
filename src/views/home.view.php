@@ -27,14 +27,14 @@
                             <li><a href="/delete-course">❌ Eliminar Curso</a></li>
                         </ul>
                     </li>
-                    <!-- <li>
+                    <li>
                         <a href="#">🏢 Departamentos</a>
                         <ul class="dropdown">
                             <li><a href="/create-department">➕ Crear Departamento</a></li>
                             <li><a href="/delete-department">❌ Eliminar Departamento</a></li>
                             <li><a href="/update-department">✏️ Editar Departamento</a></li>
                         </ul>
-                    </li> -->
+                    </li> 
 
                     <li>
                         <a href="#">🎓 Alumnos</a>

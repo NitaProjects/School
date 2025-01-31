@@ -17,8 +17,8 @@ class AssignTeacherToDepartmentController
     public function showAssignForm(): Response
     {
         return Response::html('assign-teacher', [
-            'teachers' => $this->service->getAllTeachers(),
-            'departments' => $this->service->getAllDepartments(),
+            'teachers' => $this->service->getAllTeachers(), 
+            'departments' => $this->service->getAllDepartments(), 
             'assignments' => $this->service->getAssignments(),
         ]);
     }
@@ -27,8 +27,8 @@ class AssignTeacherToDepartmentController
     {
         try {
             $result = $this->service->assignTeacherToDepartment(
-                $request->getParam('teacher_id'),
-                $request->getParam('department_id')
+                (int) $request->getParam('teacher_id'),
+                (int) $request->getParam('department_id')
             );
 
             session_flash('message', $result['message']);
@@ -41,10 +41,10 @@ class AssignTeacherToDepartmentController
         redirect('/assign-teacher');
     }
 
-    public function deleteAssignment($request, $params): void
+    public function deleteAssignment($_request, $params): void
     {
         try {
-            $result = $this->service->deleteAssignment($params['id']);
+            $result = $this->service->deleteAssignment((int) $params['id']);
 
             session_flash('message', $result['message']);
             session_flash('message_type', 'success');

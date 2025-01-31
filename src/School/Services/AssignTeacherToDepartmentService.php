@@ -2,20 +2,23 @@
 
 namespace App\School\Services;
 
-use App\School\Repositories\TeacherRepository;
-use App\School\Repositories\DepartmentRepository;
-use App\School\Repositories\AssignmentRepository;
+use App\School\Entities\Teacher;
+use App\School\Entities\Department;
+use App\School\Entities\Assignment;
+use App\School\Repositories\TeacherRepositoryInterface;
+use App\School\Repositories\DepartmentRepositoryInterface;
+use App\School\Repositories\AssignmentRepositoryInterface;
 
 class AssignTeacherToDepartmentService
 {
-    private TeacherRepository $teacherRepository;
-    private DepartmentRepository $departmentRepository;
-    private AssignmentRepository $assignmentRepository;
+    private TeacherRepositoryInterface $teacherRepository;
+    private DepartmentRepositoryInterface $departmentRepository;
+    private AssignmentRepositoryInterface $assignmentRepository;
 
     public function __construct(
-        TeacherRepository $teacherRepository,
-        DepartmentRepository $departmentRepository,
-        AssignmentRepository $assignmentRepository
+        TeacherRepositoryInterface $teacherRepository,
+        DepartmentRepositoryInterface $departmentRepository,
+        AssignmentRepositoryInterface $assignmentRepository
     ) {
         $this->teacherRepository = $teacherRepository;
         $this->departmentRepository = $departmentRepository;
@@ -24,17 +27,17 @@ class AssignTeacherToDepartmentService
 
     public function getAllTeachers(): array
     {
-        return $this->teacherRepository->getAll();
+        return array_map(fn(Teacher $teacher) => $this->serializeTeacher($teacher), $this->teacherRepository->getAll());
     }
 
     public function getAllDepartments(): array
     {
-        return array_map(fn($department) => $this->serialize($department), $this->departmentRepository->getAll());
+        return array_map(fn(Department $department) => $this->serializeDepartment($department), $this->departmentRepository->getAll());
     }
 
     public function getAssignments(): array
     {
-        return $this->assignmentRepository->getAllAssignments();
+        return array_map(fn(Assignment $assignment) => $this->serializeAssignment($assignment), $this->assignmentRepository->getAllAssignments());
     }
 
     public function assignTeacherToDepartment(int $teacherId, int $departmentId): array
@@ -74,12 +77,31 @@ class AssignTeacherToDepartmentService
         ];
     }
 
-    private function serialize(\App\School\Entities\Department $department): array
+    private function serializeTeacher(Teacher $teacher): array
+    {
+        return [
+            'teacher_id' => $teacher->getId(),
+            'name' => $teacher->getName()
+        ];
+    }
+
+    private function serializeDepartment(Department $department): array
     {
         return [
             'id' => $department->getId(),
-            'name' => $department->getName(),
-            'description' => $department->getDescription(),
+            'name' => $department->getName()
         ];
     }
+
+    private function serializeAssignment(Assignment $assignment): array
+{
+    return [
+        'assignment_id' => $assignment->getId(),
+        'teacher_id' => $assignment->getTeacher()->getId(),
+        'teacher_name' => $assignment->getTeacher()->getName(),
+        'department_id' => $assignment->getDepartment()->getId(),
+        'department_name' => $assignment->getDepartment()->getName(),
+        'assigned_date' => $assignment->getAssignedDate(),
+    ];
+}
 }

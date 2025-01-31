@@ -37,7 +37,7 @@ class CourseController
             $result = $this->courseService->createCourse(
                 $request->getParam('name'),
                 $request->getParam('description'),
-                $request->getParam('department_id')
+                (int) $request->getParam('department_id')
             );
 
             session_flash('message', $result['message']);
@@ -53,9 +53,9 @@ class CourseController
     public function delete($request, $params): void
     {
         try {
-            $courseId = $params['id'];
+            $courseId = (int) $params['id'];
 
-            $result = $this->courseService->deleteCourse((int) $courseId);
+            $result = $this->courseService->deleteCourse($courseId);
 
             session_flash('message', $result['message']);
             session_flash('message_type', 'success');

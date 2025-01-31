@@ -2,17 +2,19 @@
 
 namespace App\School\Services;
 
-use App\School\Repositories\TeacherRepository;
-use App\School\Repositories\UserRepository;
+use App\School\Entities\Teacher;
+use App\School\Entities\User;
+use App\School\Repositories\TeacherRepositoryInterface;
+use App\School\Repositories\UserRepositoryInterface;
 
 class TeacherService
 {
-    private TeacherRepository $teacherRepository;
-    private UserRepository $userRepository;
+    private TeacherRepositoryInterface $teacherRepository;
+    private UserRepositoryInterface $userRepository;
 
     public function __construct(
-        TeacherRepository $teacherRepository,
-        UserRepository $userRepository
+        TeacherRepositoryInterface $teacherRepository,
+        UserRepositoryInterface $userRepository
     ) {
         $this->teacherRepository = $teacherRepository;
         $this->userRepository = $userRepository;
@@ -24,8 +26,12 @@ class TeacherService
             throw new \Exception("Ese email ya tiene dueño, amigo. ¿Es tan difícil ser único?");
         }
 
-        $userId = $this->userRepository->create($name, $email, $password, "teacher");
-        $this->teacherRepository->create($userId, $hireDate);
+        $user = new User($name, $email, $password, "teacher");
+        $userId = $this->userRepository->create($user);
+
+        $teacher = new Teacher($name, $email, $password, "teacher", $hireDate);
+        $teacher->setId($userId);
+        $this->teacherRepository->create($teacher);
 
         return [
             'message' => '¡Bam! Otro profe al sistema. A ver cuánto dura.',
@@ -39,7 +45,9 @@ class TeacherService
             throw new \Exception("Profesor no encontrado.");
         }
 
-        if ($this->teacherRepository->hasAssignments($teacher['id'])) {
+        if ($this->teacherRepository->hasAssignments($teacher->getId())) {
+
+            // 🔹 Ahora accedemos como array
             throw new \Exception("Lo sentimos, el profe tiene su 'residencia fija' en algún departamento.");
         }
 
@@ -50,8 +58,25 @@ class TeacherService
         ];
     }
 
+
     public function getAllTeachers(): array
     {
-        return $this->teacherRepository->getAll();
+        return array_map(fn(Teacher $teacher) => $this->serialize($teacher), $this->teacherRepository->getAll());
+    }
+
+
+    private function serialize(Teacher $teacher): array
+    {
+
+
+        $user = $this->userRepository->findByTeacherId($teacher->getId()); // 🔹 Obtiene el objeto `User`
+
+        return [
+            'teacher_id' => $teacher->getId(),
+            'user_id' => $user ? $user->getId() : null, // 🔹 Accedemos con `getId()`
+            'name' => $teacher->getName(),
+            'email' => $teacher->getEmail(),
+            'hire_date' => $teacher->getHireDate(),
+        ];
     }
 }

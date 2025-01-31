@@ -67,7 +67,7 @@
                     <label for="course">Seleccionar Curso:</label>
                     <select name="course_id" id="course" required>
                         <?php foreach ($courses as $course): ?>
-                            <option value="<?= htmlspecialchars($course['id']) ?>">
+                            <option value="<?= htmlspecialchars($course['course_id']) ?>">
                                 <?= htmlspecialchars($course['name']) ?>
                             </option>
                         <?php endforeach; ?>

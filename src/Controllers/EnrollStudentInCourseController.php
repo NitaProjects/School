@@ -27,8 +27,8 @@ class EnrollStudentInCourseController
     {
         try {
             $result = $this->service->enrollStudentInCourse(
-                $request->getParam('student_id'),
-                $request->getParam('course_id')
+                (int) $request->getParam('student_id'),
+                (int) $request->getParam('course_id')
             );
 
             session_flash('message', $result['message']);
@@ -41,10 +41,10 @@ class EnrollStudentInCourseController
         redirect('/enroll-student');
     }
 
-    public function deleteEnrollment($request, $params): void
+    public function deleteEnrollment($_request, $params): void
     {
         try {
-            $result = $this->service->deleteEnrollment($params['id']);
+            $result = $this->service->deleteEnrollment((int) $params['id']);
 
             session_flash('message', $result['message']);
             session_flash('message_type', 'success');

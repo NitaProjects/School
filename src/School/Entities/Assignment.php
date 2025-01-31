@@ -5,14 +5,14 @@ namespace App\School\Entities;
 class Assignment
 {
     private int $id;
-    private int $teacherId;
-    private int $departmentId;
+    private Teacher $teacher;
+    private Department $department;
     private string $assignedDate;
 
-    public function __construct(int $teacherId, int $departmentId, string $assignedDate)
+    public function __construct(Teacher $teacher, Department $department, string $assignedDate)
     {
-        $this->teacherId = $teacherId;
-        $this->departmentId = $departmentId;
+        $this->teacher = $teacher;
+        $this->department = $department;
         $this->assignedDate = $assignedDate;
     }
 
@@ -27,25 +27,25 @@ class Assignment
         return $this;
     }
 
-    public function getTeacherId(): int
+    public function getTeacher(): Teacher
     {
-        return $this->teacherId;
+        return $this->teacher;
     }
 
-    public function setTeacherId(int $teacherId): self
+    public function setTeacher(Teacher $teacher): self
     {
-        $this->teacherId = $teacherId;
+        $this->teacher = $teacher;
         return $this;
     }
 
-    public function getDepartmentId(): int
+    public function getDepartment(): Department
     {
-        return $this->departmentId;
+        return $this->department;
     }
 
-    public function setDepartmentId(int $departmentId): self
+    public function setDepartment(Department $department): self
     {
-        $this->departmentId = $departmentId;
+        $this->department = $department;
         return $this;
     }
 
